@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useUsers } from "../../Providers/Users";
 import { habitsAPI } from "../../services/api";
 
-export const UserList = () => {
+const UserList = () => {
 	const { setUsers } = useUsers();
 	useEffect(() => {
 		async function getUserList() {
@@ -12,5 +12,7 @@ export const UserList = () => {
 		getUserList();
 	}, []);
 
-	return <div></div>;
+	return <div>UserList</div>;
 };
+
+export default UserList;
