@@ -1,13 +1,9 @@
-import FormLogin from "./components/FormLogin";
-import Register from "./components/Register";
+import Routes from "./routes";
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<FormLogin />
-				{/* <Register /> */}
-			</header>
+			<Routes />
 		</div>
 	);
 }
