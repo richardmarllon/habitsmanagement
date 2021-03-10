@@ -1,10 +1,12 @@
+import FormLogin from "./components/FormLogin";
 import Register from "./components/Register";
 
 function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<Register />
+				<FormLogin />
+				{/* <Register /> */}
 			</header>
 		</div>
 	);
