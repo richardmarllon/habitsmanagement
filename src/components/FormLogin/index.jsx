@@ -57,7 +57,7 @@ const FormLogin = () => {
 					helperText={errors.password?.message}
 				/>
 
-				<button type="submit">Login</button>
+				<Button type="onSubmit">Login</Button>
 			</form>
 		</>
 	);
