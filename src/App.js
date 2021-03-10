@@ -1,3 +1,4 @@
+import { GroupsList } from "./components/GroupsList";
 import Register from "./components/Register";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<Register />
+				<GroupsList />
 			</header>
 		</div>
 	);
