@@ -32,8 +32,11 @@ const Register = () => {
 	});
 
 	const handleForm = (data) => {
-		const dataForm = { user: data };
-		axios.post("https://kabit-api.herokuapp.com/users/", { ...dataForm });
+		delete data.confirmPassword;
+		console.log(data);
+		axios
+			.post("https://kabit-api.herokuapp.com/users/", data)
+			.then((resp) => console.log(resp));
 	};
 
 	return (
