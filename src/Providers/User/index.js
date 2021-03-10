@@ -1,9 +1,17 @@
+import jwt_decode from "jwt-decode";
+
 const { createContext, useContext, useState } = require("react");
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-	const [user, setUser] = useState([]);
+	const token = localStorage.getItem("token") || "";
+
+	const [user, setUser] = useState(token);
+
+	if (token && typeof user !== "number") {
+		setUser(jwt_decode(token).user_id);
+	}
 
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
