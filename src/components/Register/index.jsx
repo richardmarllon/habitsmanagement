@@ -1,7 +1,8 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
+import { habitsAPI } from "../../services/api";
+import { TextField, Button } from "@material-ui/core";
 
 const Register = () => {
 	const schema = yup.object().shape({
@@ -15,12 +16,8 @@ const Register = () => {
 			),
 		password: yup
 			.string()
-			.min(8, "Minimo 8 caracteres")
 			.required("Campo Obrigatório")
-			.matches(
-				/^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1}).*$/,
-				"Requer no minimo 1 caractere especial"
-			),
+			.min(6, "Minimo 6 caracteres"),
 		confirmPassword: yup
 			.string()
 			.required("Campo Obrigatório")
@@ -31,45 +28,66 @@ const Register = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const handleForm = (data) => {
+	const handleForm = async (data) => {
 		delete data.confirmPassword;
-		console.log(data);
-		axios
-			.post("https://kabit-api.herokuapp.com/users/", data)
-			.then((resp) => console.log(resp));
+		const resp = await habitsAPI.post(`/users/`, data);
+		console.log(resp);
 	};
 
 	return (
 		<>
 			<form onSubmit={handleSubmit(handleForm)}>
 				<h1>Registre-se</h1>
-				<label for="username">Nome de usuário:</label>
-				<br />
-				<input name="username" ref={register} required></input>
-				<br />
-				<br />
-				<label for="email">Email:</label>
-				<br />
-				<input name="email" ref={register} required></input>
-				<br />
-				<br />
-				<label for="password">Senha:</label>
-				<br />
-				<input type="password" name="password" ref={register} required></input>
+				<TextField
+					variant="outlined"
+					label="Usuário"
+					size="small"
+					name="username"
+					inputRef={register}
+					error={!!errors.username}
+					helperText={errors.username?.message}
+				/>
 				<br />
 				<br />
-				<label for="confirmPassword">Confirme a senha:</label>
+				<TextField
+					variant="outlined"
+					label="Email"
+					size="small"
+					name="email"
+					inputRef={register}
+					error={!!errors.email}
+					helperText={errors.email?.message}
+				/>
 				<br />
-				<input
-					type="password"
+				<br />
+				<TextField
+					variant="outlined"
+					label="Senha"
+					size="small"
+					name="password"
+					inputRef={register}
+					error={!!errors.password}
+					helperText={errors.password?.message}
+				/>
+				<br />
+				<br />
+				<TextField
+					variant="outlined"
+					label="Comfirmar senha"
+					size="small"
 					name="confirmPassword"
-					ref={register}
-					required
-				></input>
+					inputRef={register}
+					error={!!errors.confirmPassword}
+					helperText={errors.confirmPassword?.message}
+				/>
 				<br />
 				<br />
-				<button type="submit">Criar</button>
-				<button>voltar</button>
+				<Button type="submit" variant="contained" color="secondary">
+					Criar
+				</Button>
+				<Button variant="contained" color="primary">
+					Voltar
+				</Button>
 			</form>
 		</>
 	);
