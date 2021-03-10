@@ -30,8 +30,7 @@ const Register = () => {
 
 	const handleForm = async (data) => {
 		delete data.confirmPassword;
-		const resp = await habitsAPI.post(`/users/`, data);
-		console.log(resp);
+		await habitsAPI.post(`/users/`, data);
 	};
 
 	return (
@@ -62,6 +61,7 @@ const Register = () => {
 				<br />
 				<TextField
 					variant="outlined"
+					type="password"
 					label="Senha"
 					size="small"
 					name="password"
@@ -73,6 +73,7 @@ const Register = () => {
 				<br />
 				<TextField
 					variant="outlined"
+					type="password"
 					label="Comfirmar senha"
 					size="small"
 					name="confirmPassword"
