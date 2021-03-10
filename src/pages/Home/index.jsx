@@ -1,17 +1,23 @@
-import { useHabits } from "../../Providers/Habits";
+import { useActivities } from "../../Providers/Activities";
 
 const Home = () => {
-	const { personalHabits } = useHabits();
+	const { activities } = useActivities();
 
 	return (
 		<div>
 			<h1>Home</h1>
-			<ul>
-				Lista de habitos pessoais:
-				{personalHabits.map((item) => {
-					return <li key={item.id}>{item.title}</li>;
-				})}
-			</ul>
+			<div>
+				<ul>
+					Lista de atividades:
+					{activities.map((item) => {
+						return (
+							<li key={item.id}>
+								{item.title} do grupo {item.group}
+							</li>
+						);
+					})}
+				</ul>
+			</div>
 		</div>
 	);
 };
