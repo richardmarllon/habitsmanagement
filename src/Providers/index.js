@@ -7,17 +7,17 @@ import { UsersProvider } from "./Users";
 
 const Providers = ({ children }) => {
 	return (
-		<ActivitiesProvider>
+		<UserProvider>
 			<GoalsProvider>
 				<GroupsProvider>
 					<HabitsProvider>
 						<UsersProvider>
-							<UserProvider>{children}</UserProvider>
+							<ActivitiesProvider>{children}</ActivitiesProvider>
 						</UsersProvider>
 					</HabitsProvider>
 				</GroupsProvider>
 			</GoalsProvider>
-		</ActivitiesProvider>
+		</UserProvider>
 	);
 };
 

@@ -1,7 +1,9 @@
+import GroupsList from "../../components/GroupsList";
+
 const Groups = () => {
 	return (
 		<div>
-			<h1>Groups</h1>
+			<GroupsList />
 		</div>
 	);
 };
