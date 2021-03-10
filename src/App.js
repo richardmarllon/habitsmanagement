@@ -1,11 +1,9 @@
-import Register from "./components/Register";
+import Routes from "./routes";
 
 function App() {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<Register />
-			</header>
+			<Routes />
 		</div>
 	);
 }
