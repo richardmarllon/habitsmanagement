@@ -12,7 +12,7 @@ import {
 const FormLogin = () => {
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
-		password: yup.string().min(8, "minimo de 8").required("Campo Obrigatório"),
+		password: yup.string().min(6, "minimo de 6").required("Campo Obrigatório"),
 	});
 
 	const { register, handleSubmit, errors } = useForm({
@@ -59,6 +59,7 @@ const FormLogin = () => {
 
 				<Button type="onSubmit">Login</Button>
 			</form>
+			<></>
 		</>
 	);
 };
