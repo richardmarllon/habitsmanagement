@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useGroups } from "../../Providers/Groups";
 import { habitsAPI } from "../../services/api";
 
-export const GroupsList = () => {
+const GroupsList = () => {
 	const { setGroups } = useGroups();
 
 	useEffect(() => {
@@ -13,5 +13,7 @@ export const GroupsList = () => {
 		getGroupsList();
 	}, []);
 
-	return <div></div>;
+	return <div>GroupList</div>;
 };
+
+export default GroupsList;

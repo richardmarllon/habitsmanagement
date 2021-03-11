@@ -2,13 +2,13 @@ import { Redirect, Route as ReactDOMRoute } from "react-router-dom";
 import { useUser } from "../Providers/User";
 
 const Route = ({ isPrivate = false, component: Component, ...rest }) => {
-	const { user } = useUser();
+	const { userToken } = useUser();
 
 	return (
 		<ReactDOMRoute
 			{...rest}
 			render={() => {
-				return isPrivate === !!user ? (
+				return isPrivate === !!userToken ? (
 					<Component />
 				) : (
 					<Redirect
