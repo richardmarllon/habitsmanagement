@@ -18,7 +18,7 @@ const FormLogin = () => {
 		password: yup.string().min(6, "minimo de 6").required("Campo Obrigatório"),
 	});
 
-	const { register, handleSubmit } = useForm({
+	const { register, handleSubmit, errors } = useForm({
 		resolver: yupResolver(schema),
 	});
 

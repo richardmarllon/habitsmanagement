@@ -1,5 +1,6 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
+import GoalForm from "../../components/GoalForm";
 
 const Home = () => {
 	const { setUserToken } = useUser();
@@ -9,7 +10,6 @@ const Home = () => {
 		setUserToken("");
 		localStorage.removeItem("token");
 	};
-
 
 	return (
 		<div>
@@ -26,6 +26,7 @@ const Home = () => {
 						);
 					})}
 				</ul>
+				<GoalForm />
 			</div>
 		</div>
 	);
