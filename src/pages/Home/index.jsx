@@ -1,5 +1,7 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
+import AddHabitsModal from "../../components/AddHabitsModal";
+import GoalForm from "../../components/GoalForm";
 
 const Home = () => {
 	const { setUserToken } = useUser();
@@ -25,6 +27,8 @@ const Home = () => {
 						);
 					})}
 				</ul>
+				<AddHabitsModal />
+				<GoalForm />
 			</div>
 		</div>
 	);

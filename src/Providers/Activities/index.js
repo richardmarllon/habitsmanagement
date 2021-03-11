@@ -1,15 +1,16 @@
 import { habitsAPI } from "../../services/api";
+import { useUser } from "../User";
 const { createContext, useContext, useState, useEffect } = require("react");
 
 const ActivitiesContext = createContext();
 
 export const ActivitiesProvider = ({ children }) => {
 	const [activities, setActivities] = useState([]);
-	const token = localStorage.getItem("token") || ""; //after insert Token State, need to change  this token below to Token State
+	const { userToken } = useUser();
 
 	useEffect(() => {
-		if (token !== "") {
-			const AuthConfig = { Authorization: `Bearer ${token}` };
+		if (userToken !== "") {
+			const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 			async function GetActivities() {
 				const response = await habitsAPI.get(`activities/`, {
 					headers: AuthConfig,
@@ -18,7 +19,7 @@ export const ActivitiesProvider = ({ children }) => {
 			}
 			GetActivities();
 		}
-	}, [token]);
+	}, [userToken]);
 
 	return (
 		<ActivitiesContext.Provider value={{ activities, setActivities }}>
