@@ -1,6 +1,12 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+	Button,
+	createMuiTheme,
+	makeStyles,
+	TextField,
+} from "@material-ui/core/";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 
@@ -31,13 +37,34 @@ const FormLogin = () => {
 				<h1>Login</h1>
 
 				<label for="username">Nome de usuário:</label>
-				<input name="username" ref={register} required />
+				<TextField
+					margin="normal"
+					variant="outlined"
+					label="username"
+					name="username"
+					size="small"
+					color="primary"
+					inputRef={register}
+					error={!!errors.username || !!errors.password}
+					helperText={errors.username?.message}
+				/>
 
-				<label for="password">Senha:</label>
-				<input type="password" name="password" ref={register} required />
+				<TextField
+					margin="normal"
+					type="password"
+					variant="outlined"
+					label="Senha"
+					name="password"
+					size="small"
+					color="primary"
+					inputRef={register}
+					error={!!errors.password || !!errors.email}
+					helperText={errors.password?.message}
+				/>
 
-				<button type="submit">Login</button>
+				<Button type="onSubmit">Login</Button>
 			</form>
+			<></>
 		</>
 	);
 };
