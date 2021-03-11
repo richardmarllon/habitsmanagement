@@ -83,11 +83,11 @@ const Register = () => {
 				/>
 				<br />
 				<br />
-				<Button type="submit" variant="contained" color="secondary">
-					Criar
-				</Button>
 				<Button variant="contained" color="primary">
 					Voltar
+				</Button>
+				<Button type="submit" variant="contained" color="secondary">
+					Criar
 				</Button>
 			</form>
 		</>
