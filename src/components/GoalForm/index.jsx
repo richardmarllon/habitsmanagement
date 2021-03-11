@@ -68,6 +68,7 @@ const GoalForm = () => {
 				/>
 				<FormControl>
 					<InputLabel error={!!errors.difficulty}>Dificuldade</InputLabel>
+
 					<Controller
 						name="difficulty"
 						control={control}
