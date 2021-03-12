@@ -8,7 +8,7 @@ const GoalsContext = createContext();
 export const GoalsProvider = ({ children }) => {
 	const [goals, setGoals] = useState([]);
 	const [userGoals, setUserGoals] = useState([]);
-	const { userGroup } = useGroups();
+	const { userGroupData } = useGroups();
 
 	useEffect(() => {
 		if (!goals[0]) {
@@ -18,8 +18,8 @@ export const GoalsProvider = ({ children }) => {
 			}
 			getPersonalHabits();
 		}
-		setUserGoals(userGroup.goals);
-	}, [goals, userGroup]);
+		setUserGoals(userGroupData.goals);
+	}, [goals, userGroupData]);
 
 	return (
 		<GoalsContext.Provider value={{ goals, setGoals, userGoals }}>

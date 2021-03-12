@@ -1,5 +1,6 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
+import EditUserModal from "../../components/EditUserModal";
 import AddHabitsModal from "../../components/AddHabitsModal";
 import UpdateActivity from "../../components/UpdateActivity";
 import CreateActivity from "../../components/CreateActivities";
@@ -19,6 +20,7 @@ const Home = () => {
 		<div>
 			<h1>Home</h1>
 			<button onClick={clearToken}>Sair</button>
+			<EditUserModal />
 			<CreateActivity />
 			<div>
 				<ul>

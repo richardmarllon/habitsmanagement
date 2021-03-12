@@ -6,24 +6,24 @@ const { createContext, useContext, useState, useEffect } = require("react");
 const GroupsContext = createContext();
 
 export const GroupsProvider = ({ children }) => {
-	const [userGroup, setUserGroup] = useState([]);
+	const [userGroupData, setUserGroupData] = useState([]);
 	const [groups, setGroups] = useState([]);
 	const [changer, setChanger] = useState(true);
-	const { userGroupID } = useUser();
+	const { userGroup } = useUser();
 
 	useEffect(() => {
 		async function getUserGroup() {
-			if (userGroupID) {
-				const group = await habitsAPI.get(`groups/${userGroupID}/`);
-				setUserGroup(group.data);
+			if (userGroup) {
+				const group = await habitsAPI.get(`groups/${userGroup}/`);
+				setUserGroupData(group.data);
 			}
 		}
 		getUserGroup();
-	}, [userGroupID, changer]);
+	}, [userGroup, changer]);
 
 	return (
 		<GroupsContext.Provider
-			value={{ groups, setGroups, userGroup, setChanger, changer }}
+			value={{ groups, setGroups, userGroupData, setChanger, changer }}
 		>
 			{children}
 		</GroupsContext.Provider>
