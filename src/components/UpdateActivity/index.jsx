@@ -6,17 +6,17 @@ import { habitsAPI } from "../../services/api";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { useCalendar } from "../../Providers/Calendar";
-import { useUser } from "../../Providers/User";
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useUser } from "../../Providers/User";
 
-//OBS.: Faltando receber a informaçao do grupo na linha 46.
-
-const CreateActivity = () => {
+const UpdateActivity = ({ activity }) => {
 	const { userToken } = useUser();
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const { calendar, setCalendar } = useCalendar();
+	setCalendar(activity.realization_time);
 
 	const [modalVisible, setModalVisible] = useState(false);
 	const showModal = () => {
@@ -43,10 +43,16 @@ const CreateActivity = () => {
 		resolver: yupResolver(schema),
 	});
 
+	const handleDelete = async () => {
+		await habitsAPI.delete(`activities/${activity.id}/`, {
+			headers: AuthConfig,
+		});
+		setModalVisible(false);
+	};
+
 	const handleForm = async (data) => {
 		data.realization_time = data.realization_time.toISOString();
-		data.group = 2;
-		await habitsAPI.post(`activities/`, data, {
+		await habitsAPI.patch(`activities/${activity.id}/`, data, {
 			headers: AuthConfig,
 		});
 		reset();
@@ -55,21 +61,24 @@ const CreateActivity = () => {
 	return (
 		<>
 			<Button type="primary" onClick={showModal} variant="outlined">
-				Nova atividade +
+				<EditOutlined />
 			</Button>
 			<Modal
-				title={`Você está criando uma nova atividade`}
+				title={`Você está editando a atividade: ${activity.title}`}
 				visible={modalVisible}
 				onOk={handleSubmit(handleForm)}
 				onCancel={handleCancel}
 			>
-				<form onSubmit={handleSubmit(handleForm)}>
-					<h1>Criar atividade</h1>
+				<form>
+					<h1>Editar atividade</h1>
 					<TextField
+						fullWidth
+						margin="normal"
 						variant="outlined"
 						label="Título"
 						size="small"
 						name="title"
+						value={`${activity.title}`}
 						inputRef={register}
 						error={!!errors.title}
 						helperText={errors.title?.message}
@@ -78,6 +87,7 @@ const CreateActivity = () => {
 					<br />
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<DateTimePicker
+							fullWidth
 							label="Data/Hora:"
 							name="realization_time"
 							ref={register}
@@ -86,9 +96,17 @@ const CreateActivity = () => {
 						/>
 					</MuiPickersUtilsProvider>
 				</form>
+				<Button
+					variant="outlined"
+					color="secondary"
+					startIcon={<DeleteOutlined />}
+					onClick={handleDelete}
+				>
+					deletar
+				</Button>
 			</Modal>
 		</>
 	);
 };
 
-export default CreateActivity;
+export default UpdateActivity;
