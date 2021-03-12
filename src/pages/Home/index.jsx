@@ -39,6 +39,13 @@ const Home = () => {
 			>
 				ir para habitos
 			</button>
+			<button
+				onClick={() => {
+					history.push("/groups");
+				}}
+			>
+				ir para grupos
+			</button>
 		</div>
 	);
 };
