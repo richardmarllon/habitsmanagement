@@ -4,6 +4,7 @@ import { GroupsProvider } from "./Groups";
 import { HabitsProvider } from "./Habits";
 import { UserProvider } from "./User";
 import { UsersProvider } from "./Users";
+import { CalendarProvider } from "./Calendar";
 
 const Providers = ({ children }) => {
 	return (
@@ -12,7 +13,9 @@ const Providers = ({ children }) => {
 				<GroupsProvider>
 					<HabitsProvider>
 						<UsersProvider>
-							<ActivitiesProvider>{children}</ActivitiesProvider>
+							<ActivitiesProvider>
+								<CalendarProvider>{children}</CalendarProvider>
+							</ActivitiesProvider>
 						</UsersProvider>
 					</HabitsProvider>
 				</GroupsProvider>
