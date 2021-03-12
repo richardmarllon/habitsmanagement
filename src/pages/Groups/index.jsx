@@ -2,7 +2,6 @@ import GoalForm from "../../components/GoalForm";
 import { useHistory } from "react-router";
 import GroupsList from "../../components/GroupsList";
 import { useGoals } from "../../Providers/Goals";
-import EditHabitsModal from "../../components/EditHabitsModal";
 import { useUser } from "../../Providers/User";
 import { Button } from "@material-ui/core";
 import { DeleteOutlined } from "@ant-design/icons";
