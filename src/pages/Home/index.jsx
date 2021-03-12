@@ -1,7 +1,6 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
 import AddHabitsModal from "../../components/AddHabitsModal";
-import GoalForm from "../../components/GoalForm";
 import { useHistory } from "react-router";
 
 const Home = () => {
@@ -30,7 +29,6 @@ const Home = () => {
 					})}
 				</ul>
 				<AddHabitsModal />
-				<GoalForm />
 			</div>
 			<button
 				onClick={() => {
@@ -38,6 +36,13 @@ const Home = () => {
 				}}
 			>
 				ir para habitos
+			</button>
+			<button
+				onClick={() => {
+					history.push("/groups");
+				}}
+			>
+				ir para grupos
 			</button>
 		</div>
 	);

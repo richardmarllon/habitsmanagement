@@ -14,7 +14,7 @@ import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 import { useState } from "react";
 
-const GoalForm = () => {
+const GoalForm = ({ changer, setChanger }) => {
 	const { userToken } = useUser();
 	const [difficulty, setDifficulty] = useState("");
 
@@ -31,7 +31,7 @@ const GoalForm = () => {
 			.required("Campo Obrigatório"),
 	});
 
-	const { register, handleSubmit, errors, control } = useForm({
+	const { register, handleSubmit, errors, control, reset } = useForm({
 		resolver: yupResolver(schema),
 	});
 
@@ -42,7 +42,8 @@ const GoalForm = () => {
 					Authorization: `Bearer ${JSON.parse(userToken)}`,
 				},
 			});
-			console.log(response);
+			setChanger(!changer);
+			reset();
 		}
 		sendData();
 	};
