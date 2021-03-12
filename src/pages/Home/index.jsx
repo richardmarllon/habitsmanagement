@@ -1,13 +1,14 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
 import AddHabitsModal from "../../components/AddHabitsModal";
-import GoalForm from "../../components/GoalForm";
 import UpdateActivity from "../../components/UpdateActivity";
 import CreateActivity from "../../components/CreateActivities";
+import { useHistory } from "react-router";
 
 const Home = () => {
 	const { setUserToken } = useUser();
 	const { activities } = useActivities();
+	const history = useHistory();
 
 	const clearToken = () => {
 		setUserToken("");
@@ -32,8 +33,21 @@ const Home = () => {
 					})}
 				</ul>
 				<AddHabitsModal />
-				<GoalForm />
 			</div>
+			<button
+				onClick={() => {
+					history.push("/habits");
+				}}
+			>
+				ir para habitos
+			</button>
+			<button
+				onClick={() => {
+					history.push("/groups");
+				}}
+			>
+				ir para grupos
+			</button>
 		</div>
 	);
 };

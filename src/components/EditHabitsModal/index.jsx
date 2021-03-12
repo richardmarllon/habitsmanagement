@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+
 import {
 	TextField,
 	InputLabel,
@@ -15,14 +17,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 
-const AddHabitsModal = () => {
+const EditHabitsModal = ({ habit }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [difficulty, setDifficulty] = useState("");
-	const { user, userToken } = useUser();
+	const { userToken } = useUser();
+	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const schema = yup.object().shape({
-		title: yup.string().required("Campo Obrigatório"),
-		category: yup.string().required("Campo Obrigatório"),
+		how_much_achieved: yup
+			.number("insira um valor")
+			.required("Campo Obrigatório")
+			.min(0, "Insira um número maior que 0."),
 		frequency: yup.string().required("Campo Obrigatório"),
 		difficulty: yup.string().required("Campo obrigatório"),
 	});
@@ -34,36 +39,40 @@ const AddHabitsModal = () => {
 	const handleChange = (evt) => {
 		setDifficulty(evt.target.value);
 	};
-
 	const handleForm = async (data) => {
-		const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
-		data.acheved = false;
-		data.how_much_achieved = 0;
-		data.user = user;
-
-		let response = await habitsAPI.post(`habits/`, data, {
+		let response = await habitsAPI.patch(`habits/${habit.id}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE HABITO NO USUÁRIO");
+		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
 		reset();
 		setIsModalVisible(false);
 	};
 
+	const handleDelete = async () => {
+		let response = await habitsAPI.delete(`habits/${habit.id}/`, {
+			headers: AuthConfig,
+		});
+		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
+		setIsModalVisible(false);
+	};
+
 	const showModal = () => {
+		reset();
 		setIsModalVisible(true);
 	};
 
 	const handleCancel = () => {
+		reset();
 		setIsModalVisible(false);
 	};
 
 	return (
 		<>
 			<Button type="primary" onClick={showModal} variant="outlined">
-				Adicionar hábito.
+				<EditOutlined />
 			</Button>
 			<Modal
-				title="Criar um novo hábito:"
+				title={`Você está editando o habito: ${habit.title}`}
 				visible={isModalVisible}
 				onOk={handleSubmit(handleForm)}
 				onCancel={handleCancel}
@@ -73,21 +82,12 @@ const AddHabitsModal = () => {
 						fullWidth
 						margin="normal"
 						variant="outlined"
-						label="Titulo"
+						label="Vezes realizado"
+						type="number"
 						inputRef={register}
-						name="title"
-						error={!!errors.title}
-						helperText={errors.title?.message}
-					/>
-					<TextField
-						fullWidth
-						variant="outlined"
-						label="Categoria"
-						margin="normal"
-						inputRef={register}
-						name="category"
-						error={!!errors.category}
-						helperText={errors.category?.message}
+						name="how_much_achieved"
+						error={!!errors.how_much_achieved}
+						helperText={errors.how_much_achieved?.message}
 					/>
 					<TextField
 						fullWidth
@@ -129,9 +129,17 @@ const AddHabitsModal = () => {
 						}
 					</FormControl>
 				</form>
+				<Button
+					variant="outlined"
+					color="secondary"
+					startIcon={<DeleteOutlined />}
+					onClick={handleDelete}
+				>
+					deletar
+				</Button>
 			</Modal>
 		</>
 	);
 };
 
-export default AddHabitsModal;
+export default EditHabitsModal;

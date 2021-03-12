@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+
 import {
 	TextField,
 	InputLabel,
@@ -15,16 +17,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 
-const AddHabitsModal = () => {
+const EditGoalModal = ({ goal, setChanger, changer }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [difficulty, setDifficulty] = useState("");
-	const { user, userToken } = useUser();
+	const [achieved, setAchieved] = useState("");
+	const { userToken } = useUser();
+	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),
-		category: yup.string().required("Campo Obrigatório"),
-		frequency: yup.string().required("Campo Obrigatório"),
-		difficulty: yup.string().required("Campo obrigatório"),
+		achieved: yup.boolean().required("Campo obrigatório"),
 	});
 
 	const { register, handleSubmit, errors, control, reset } = useForm({
@@ -32,38 +33,45 @@ const AddHabitsModal = () => {
 	});
 
 	const handleChange = (evt) => {
-		setDifficulty(evt.target.value);
+		setAchieved(evt.target.value);
 	};
 
 	const handleForm = async (data) => {
-		const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
-		data.acheved = false;
-		data.how_much_achieved = 0;
-		data.user = user;
-
-		let response = await habitsAPI.post(`habits/`, data, {
+		let response = await habitsAPI.patch(`goals/${goal.id}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE HABITO NO USUÁRIO");
+		console.log(response, "RESPOSTA EDIÇÃO DE META DO GRUPO");
 		reset();
 		setIsModalVisible(false);
+		setChanger(!changer);
+	};
+
+	const handleDelete = async () => {
+		let response = await habitsAPI.delete(`goals/${goal.id}/`, {
+			headers: AuthConfig,
+		});
+		console.log(response, "RESPOSTA EDIÇÃO DE META DO GRUPO");
+		setIsModalVisible(false);
+		setChanger(!changer);
 	};
 
 	const showModal = () => {
+		reset();
 		setIsModalVisible(true);
 	};
 
 	const handleCancel = () => {
+		reset();
 		setIsModalVisible(false);
 	};
 
 	return (
 		<>
 			<Button type="primary" onClick={showModal} variant="outlined">
-				Adicionar hábito.
+				<EditOutlined />
 			</Button>
 			<Modal
-				title="Criar um novo hábito:"
+				title={`Você está editando o habito: ${goal.title}`}
 				visible={isModalVisible}
 				onOk={handleSubmit(handleForm)}
 				onCancel={handleCancel}
@@ -73,65 +81,50 @@ const AddHabitsModal = () => {
 						fullWidth
 						margin="normal"
 						variant="outlined"
-						label="Titulo"
+						label="Título da meta"
 						inputRef={register}
 						name="title"
 						error={!!errors.title}
 						helperText={errors.title?.message}
 					/>
-					<TextField
-						fullWidth
-						variant="outlined"
-						label="Categoria"
-						margin="normal"
-						inputRef={register}
-						name="category"
-						error={!!errors.category}
-						helperText={errors.category?.message}
-					/>
-					<TextField
-						fullWidth
-						margin="normal"
-						variant="outlined"
-						label="Frequência"
-						inputRef={register}
-						name="frequency"
-						error={!!errors.frequency}
-						helperText={errors.frequency?.message}
-					/>
 
 					<FormControl fullWidth margin="normal" variant="outlined">
-						<InputLabel error={!!errors.difficulty}>Dificuldade</InputLabel>
+						<InputLabel error={!!errors.achieved}>
+							Já atingiu a meta?
+						</InputLabel>
 						<Controller
-							name="difficulty"
+							name="achieved"
 							control={control}
 							defaultValue=""
 							as={
 								<Select
-									value={difficulty}
+									value={achieved}
 									onChange={handleChange}
-									error={!!errors.difficulty}
-									text={errors.difficulty?.message}
+									error={!!errors.achieved}
+									text={errors.achieved?.message}
 								>
 									<MenuItem value={""}>
-										<em>Nenhum</em>
+										<em>Escolha um</em>
 									</MenuItem>
-									<MenuItem value={"Fácil"}>Fácil</MenuItem>
-									<MenuItem value={"Médio"}>Médio</MenuItem>
-									<MenuItem value={"Difícil"}>Difícil</MenuItem>
+									<MenuItem value={true}>Sim</MenuItem>
+									<MenuItem value={false}>Não</MenuItem>
 								</Select>
 							}
 						></Controller>
-						{
-							<FormHelperText error>
-								{errors.difficulty?.message}
-							</FormHelperText>
-						}
+						{<FormHelperText error>{errors.achieved?.message}</FormHelperText>}
 					</FormControl>
 				</form>
+				<Button
+					variant="outlined"
+					color="secondary"
+					startIcon={<DeleteOutlined />}
+					onClick={handleDelete}
+				>
+					deletar
+				</Button>
 			</Modal>
 		</>
 	);
 };
 
-export default AddHabitsModal;
+export default EditGoalModal;
