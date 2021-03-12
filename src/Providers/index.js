@@ -9,8 +9,8 @@ import { CalendarProvider } from "./Calendar";
 const Providers = ({ children }) => {
 	return (
 		<UserProvider>
-			<GoalsProvider>
-				<GroupsProvider>
+			<GroupsProvider>
+				<GoalsProvider>
 					<HabitsProvider>
 						<UsersProvider>
 							<ActivitiesProvider>
@@ -18,8 +18,8 @@ const Providers = ({ children }) => {
 							</ActivitiesProvider>
 						</UsersProvider>
 					</HabitsProvider>
-				</GroupsProvider>
-			</GoalsProvider>
+				</GoalsProvider>
+			</GroupsProvider>
 		</UserProvider>
 	);
 };
