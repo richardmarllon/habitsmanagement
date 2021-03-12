@@ -8,7 +8,10 @@ import DateFnsUtils from "@date-io/date-fns";
 import { useCalendar } from "../../Providers/Calendar";
 import { useActivities } from "../../Providers/Activities";
 
-const CreateActivity = () => {
+//SUGESTÃO: Quando for usado na pagina de atividades, passar os valores das keys
+//do array "activities" por props, coloquei o nome da props como key, para poder
+//fazer a atualização na atividade especifica
+const UpdateActivity = (props) => {
 	const token = localStorage.getItem("token") || "";
 
 	const { activities } = useActivities();
@@ -30,22 +33,20 @@ const CreateActivity = () => {
 	});
 
 	const handleForm = async (data) => {
-		console.log(data.realization_time);
 		if (token !== "") {
 			const AuthConfig = { Authorization: `Bearer ${JSON.parse(token)}` };
 			data.realization_time = data.realization_time.toISOString();
 			data.group = 1;
 			console.log(AuthConfig);
-			const resp = await habitsAPI.post(`activities/`, data, {
+			await habitsAPI.patch(`activities/${activities[props.key].id}/`, data, {
 				headers: AuthConfig,
 			});
-			activities.push(resp);
 		}
 	};
 	return (
 		<>
 			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Criar atividade</h1>
+				<h1>Editar atividade</h1>
 				<TextField
 					variant="outlined"
 					label="Título"
@@ -68,11 +69,11 @@ const CreateActivity = () => {
 				</MuiPickersUtilsProvider>
 				<br />
 				<br />
-				<Button type="submit">Criar</Button>
+				<Button type="submit">Salvar</Button>
 				<Button>Voltar</Button>
 			</form>
 		</>
 	);
 };
 
-export default CreateActivity;
+export default UpdateActivity;
