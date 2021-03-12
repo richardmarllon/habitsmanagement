@@ -6,17 +6,28 @@ import { habitsAPI } from "../../services/api";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { useCalendar } from "../../Providers/Calendar";
-import { useActivities } from "../../Providers/Activities";
+import React, { useState } from "react";
+import { Modal } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useUser } from "../../Providers/User";
 
-//SUGESTÃO: Quando for usado na pagina de atividades, passar os valores das keys
-//do array "activities" por props, coloquei o nome da props como key, para poder
-//fazer a atualização na atividade especifica
-const UpdateActivity = (props) => {
-	const token = localStorage.getItem("token") || "";
+const UpdateActivity = ({ activity }) => {
+	const { userToken } = useUser();
+	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
-	const { activities } = useActivities();
+	const { calendar, setCalendar } = useCalendar();
+	setCalendar(activity.realization_time);
 
-	const { calendar, setCalendar } = useCalendar(new Date());
+	const [modalVisible, setModalVisible] = useState(false);
+	const showModal = () => {
+		reset();
+		setModalVisible(true);
+	};
+
+	const handleCancel = () => {
+		reset();
+		setModalVisible(false);
+	};
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),
@@ -28,50 +39,72 @@ const UpdateActivity = (props) => {
 			.required(),
 	});
 
-	const { register, handleSubmit, errors } = useForm({
+	const { register, handleSubmit, errors, reset } = useForm({
 		resolver: yupResolver(schema),
 	});
 
+	const handleDelete = async () => {
+		await habitsAPI.delete(`activities/${activity.id}/`, {
+			headers: AuthConfig,
+		});
+		setModalVisible(false);
+	};
+
 	const handleForm = async (data) => {
-		if (token !== "") {
-			const AuthConfig = { Authorization: `Bearer ${JSON.parse(token)}` };
-			data.realization_time = data.realization_time.toISOString();
-			data.group = 1;
-			console.log(AuthConfig);
-			await habitsAPI.patch(`activities/${activities[props.key].id}/`, data, {
-				headers: AuthConfig,
-			});
-		}
+		data.realization_time = data.realization_time.toISOString();
+		await habitsAPI.patch(`activities/${activity.id}/`, data, {
+			headers: AuthConfig,
+		});
+		reset();
+		setModalVisible(false);
 	};
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Editar atividade</h1>
-				<TextField
-					variant="outlined"
-					label="Título"
-					size="small"
-					name="title"
-					inputRef={register}
-					error={!!errors.title}
-					helperText={errors.title?.message}
-				/>
-				<br />
-				<br />
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<DateTimePicker
-						label="Data/Hora:"
-						name="realization_time"
-						ref={register}
-						value={calendar}
-						onChange={setCalendar}
+			<Button type="primary" onClick={showModal} variant="outlined">
+				<EditOutlined />
+			</Button>
+			<Modal
+				title={`Você está editando a atividade: ${activity.title}`}
+				visible={modalVisible}
+				onOk={handleSubmit(handleForm)}
+				onCancel={handleCancel}
+			>
+				<form>
+					<h1>Editar atividade</h1>
+					<TextField
+						fullWidth
+						margin="normal"
+						variant="outlined"
+						label="Título"
+						size="small"
+						name="title"
+						value={`${activity.title}`}
+						inputRef={register}
+						error={!!errors.title}
+						helperText={errors.title?.message}
 					/>
-				</MuiPickersUtilsProvider>
-				<br />
-				<br />
-				<Button type="submit">Salvar</Button>
-				<Button>Voltar</Button>
-			</form>
+					<br />
+					<br />
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<DateTimePicker
+							fullWidth
+							label="Data/Hora:"
+							name="realization_time"
+							ref={register}
+							value={calendar}
+							onChange={setCalendar}
+						/>
+					</MuiPickersUtilsProvider>
+				</form>
+				<Button
+					variant="outlined"
+					color="secondary"
+					startIcon={<DeleteOutlined />}
+					onClick={handleDelete}
+				>
+					deletar
+				</Button>
+			</Modal>
 		</>
 	);
 };

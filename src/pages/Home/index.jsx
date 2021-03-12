@@ -2,6 +2,8 @@ import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
 import AddHabitsModal from "../../components/AddHabitsModal";
 import GoalForm from "../../components/GoalForm";
+import UpdateActivity from "../../components/UpdateActivity";
+import CreateActivity from "../../components/CreateActivities";
 
 const Home = () => {
 	const { setUserToken } = useUser();
@@ -16,6 +18,7 @@ const Home = () => {
 		<div>
 			<h1>Home</h1>
 			<button onClick={clearToken}>Sair</button>
+			<CreateActivity />
 			<div>
 				<ul>
 					Lista de atividades:
@@ -23,6 +26,7 @@ const Home = () => {
 						return (
 							<li key={item.id}>
 								{item.title} do grupo {item.group}
+								<UpdateActivity activity={item} />
 							</li>
 						);
 					})}

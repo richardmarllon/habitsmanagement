@@ -6,14 +6,28 @@ import { habitsAPI } from "../../services/api";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { useCalendar } from "../../Providers/Calendar";
-import { useActivities } from "../../Providers/Activities";
+import { useUser } from "../../Providers/User";
+import React, { useState } from "react";
+import { Modal } from "antd";
+
+//OBS.: Faltando receber a informaçao do grupo na linha 46.
 
 const CreateActivity = () => {
-	const token = localStorage.getItem("token") || "";
+	const { userToken } = useUser();
+	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
-	const { activities } = useActivities();
+	const { calendar, setCalendar } = useCalendar();
 
-	const { calendar, setCalendar } = useCalendar(new Date());
+	const [modalVisible, setModalVisible] = useState(false);
+	const showModal = () => {
+		reset();
+		setModalVisible(true);
+	};
+
+	const handleCancel = () => {
+		reset();
+		setModalVisible(false);
+	};
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),
@@ -25,52 +39,54 @@ const CreateActivity = () => {
 			.required(),
 	});
 
-	const { register, handleSubmit, errors } = useForm({
+	const { register, handleSubmit, errors, reset } = useForm({
 		resolver: yupResolver(schema),
 	});
 
 	const handleForm = async (data) => {
-		console.log(data.realization_time);
-		if (token !== "") {
-			const AuthConfig = { Authorization: `Bearer ${JSON.parse(token)}` };
-			data.realization_time = data.realization_time.toISOString();
-			data.group = 1;
-			console.log(AuthConfig);
-			const resp = await habitsAPI.post(`activities/`, data, {
-				headers: AuthConfig,
-			});
-			activities.push(resp);
-		}
+		data.realization_time = data.realization_time.toISOString();
+		data.group = 2;
+		await habitsAPI.post(`activities/`, data, {
+			headers: AuthConfig,
+		});
+		reset();
+		setModalVisible(false);
 	};
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Criar atividade</h1>
-				<TextField
-					variant="outlined"
-					label="Título"
-					size="small"
-					name="title"
-					inputRef={register}
-					error={!!errors.title}
-					helperText={errors.title?.message}
-				/>
-				<br />
-				<br />
-				<MuiPickersUtilsProvider utils={DateFnsUtils}>
-					<DateTimePicker
-						label="Data/Hora:"
-						name="realization_time"
-						ref={register}
-						value={calendar}
-						onChange={setCalendar}
+			<Button type="primary" onClick={showModal} variant="outlined">
+				Nova atividade +
+			</Button>
+			<Modal
+				title={`Você está criando uma nova atividade`}
+				visible={modalVisible}
+				onOk={handleSubmit(handleForm)}
+				onCancel={handleCancel}
+			>
+				<form onSubmit={handleSubmit(handleForm)}>
+					<h1>Criar atividade</h1>
+					<TextField
+						variant="outlined"
+						label="Título"
+						size="small"
+						name="title"
+						inputRef={register}
+						error={!!errors.title}
+						helperText={errors.title?.message}
 					/>
-				</MuiPickersUtilsProvider>
-				<br />
-				<br />
-				<Button type="submit">Criar</Button>
-				<Button>Voltar</Button>
-			</form>
+					<br />
+					<br />
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<DateTimePicker
+							label="Data/Hora:"
+							name="realization_time"
+							ref={register}
+							value={calendar}
+							onChange={setCalendar}
+						/>
+					</MuiPickersUtilsProvider>
+				</form>
+			</Modal>
 		</>
 	);
 };
