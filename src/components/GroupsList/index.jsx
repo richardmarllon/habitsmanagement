@@ -1,19 +1,25 @@
 import { useEffect } from "react";
-import { useGroups } from "../../Providers/Groups";
+import { groups, useGroups } from "../../Providers/Groups";
 import { habitsAPI } from "../../services/api";
 
 const GroupsList = () => {
-	const { setGroups } = useGroups();
+	const { groups, setGroups } = useGroups();
 
 	useEffect(() => {
 		async function getGroupsList() {
 			const response = await habitsAPI.get(`groups/`);
-			setGroups(response);
+			setGroups(response.data.results);
 		}
 		getGroupsList();
 	}, []);
-
-	return <div>GroupList</div>;
+	console.log(groups);
+	return (
+		<div>
+			{groups.map((group, index) => {
+				return <div key={index}>{group.id}</div>;
+			})}
+		</div>
+	);
 };
 
 export default GroupsList;
