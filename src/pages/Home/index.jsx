@@ -50,6 +50,13 @@ const Home = () => {
 			>
 				ir para grupos
 			</button>
+			<button
+				onClick={() => {
+					history.push("/users");
+				}}
+			>
+				ir para usuários
+			</button>
 		</div>
 	);
 };
