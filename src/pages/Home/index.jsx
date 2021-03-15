@@ -5,6 +5,7 @@ import AddHabitsModal from "../../components/AddHabitsModal";
 import UpdateActivity from "../../components/UpdateActivity";
 import CreateActivity from "../../components/CreateActivities";
 import { useHistory } from "react-router";
+import Header from "../../components/Header";
 
 const Home = () => {
 	const { setUserToken } = useUser();
@@ -18,6 +19,7 @@ const Home = () => {
 
 	return (
 		<div>
+			<Header pageName="Home" />
 			<h1>Home</h1>
 			<button onClick={clearToken}>Sair</button>
 			<EditUserModal />
