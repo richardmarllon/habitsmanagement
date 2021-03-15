@@ -76,9 +76,9 @@ const UpdateActivity = ({ activity }) => {
 						margin="normal"
 						variant="outlined"
 						label="Título"
+						placeholder={`${activity.title}`}
 						size="small"
 						name="title"
-						value={`${activity.title}`}
 						inputRef={register}
 						error={!!errors.title}
 						helperText={errors.title?.message}
