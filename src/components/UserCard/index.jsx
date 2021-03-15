@@ -3,7 +3,7 @@ import { Container, StyledCard } from "./style";
 
 const { Meta } = Card;
 const actions = ["func 1", "func 2"];
-const UserCard = ({ user }) => {
+const UserCard = ({ user, small = false }) => {
 	return (
 		<Container>
 			<StyledCard
@@ -21,8 +21,9 @@ const UserCard = ({ user }) => {
 						}
 					/>
 				}
+				small={small}
 			>
-				<Meta title={`${user.username}`} description={user.email} />
+				{!small && <Meta title={user.username} description={user.email} />}
 			</StyledCard>
 		</Container>
 	);

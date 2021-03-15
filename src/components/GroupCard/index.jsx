@@ -1,7 +1,7 @@
 import { useUser } from "../../Providers/User";
 import { habitsAPI } from "../../services/api";
-import { GroupContainer } from "./style";
-import { Button } from "@material-ui/core";
+import { GroupContainer, StyledButton } from "./style";
+import GroupModal from "../GroupModal";
 
 const GroupCard = ({ group }) => {
 	const { userGroup, userToken, setUserGroup } = useUser();
@@ -18,27 +18,27 @@ const GroupCard = ({ group }) => {
 		);
 		setUserGroup(group.id);
 	};
-	return (
-		<>
-			<GroupContainer>
-				<h3>nome: {group.name}</h3>
-				<h3> id: {group.id}</h3>
 
-				<h4>Qtd de participantes: {group.users.length}</h4>
+	return (
+		<GroupContainer>
+			<h3>{group.name}</h3>
+			<h4>Qtd de participantes: {group.users.length}</h4>
+			<div>
 				{group.id === userGroup ? (
-					<h3 style={{ color: "red" }}>Você está neste grupo!</h3>
+					<h4 style={{ color: "red" }}>Você está neste grupo!</h4>
 				) : (
-					<Button
+					<StyledButton
 						variant="outlined"
 						onClick={() => {
 							handleAdd();
 						}}
 					>
-						Entrar no grupo
-					</Button>
+						Participar
+					</StyledButton>
 				)}
-			</GroupContainer>
-		</>
+				<GroupModal group={group}>Detalhes</GroupModal>
+			</div>
+		</GroupContainer>
 	);
 };
 
