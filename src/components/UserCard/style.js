@@ -46,10 +46,4 @@ export const StyledName = styled.h2`
 	}
 `;
 
-export const StyledButton = styled(Button)`
-	background: rgba(30, 168, 150, 0.5) !important;
-	border-radius: 8px !important;
-	margin: 10px auto !important;
-	@media (min-width: 600px) {
-	}
-`;
+
