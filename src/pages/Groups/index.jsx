@@ -1,4 +1,6 @@
 import { useHistory } from "react-router";
+import EditCardGroup from "../../components/EditCardGrup";
+import GroupEdit from "../../components/GroupEdit";
 import GroupsList from "../../components/GroupsList";
 
 const Groups = () => {
@@ -7,6 +9,7 @@ const Groups = () => {
 	return (
 		<div>
 			<GroupsList />
+		
 			<button
 				onClick={() => {
 					history.push("/home");

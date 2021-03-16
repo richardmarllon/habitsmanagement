@@ -10,6 +10,7 @@ import { Button } from "@material-ui/core";
 import { DeleteOutlined } from "@ant-design/icons";
 import { habitsAPI } from "../../services/api";
 import EditGoalModal from "../../components/EditGoalModal";
+import EditCardGroup from "../EditCardGrup";
 
 const GroupModal = ({ group }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -98,6 +99,9 @@ const GroupModal = ({ group }) => {
 					})}
 				{userGroup === group.id && (
 					<GoalForm changer={changer} setChanger={setChanger} id={group.id} />
+				)}
+					{userGroup === group.id && (
+					<EditCardGroup/>
 				)}
 			</Modal>
 		</>
