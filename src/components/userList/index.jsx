@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useUsers } from "../../Providers/Users";
 import { habitsAPI } from "../../services/api";
+import PageUp from "../PageUp";
 import UserCard from "../UserCard";
 import { StyledPagination, UsersContainer } from "./style";
+import { Fade } from "react-awesome-reveal";
 
 const UserList = () => {
 	const history = useHistory();
@@ -49,6 +51,8 @@ const UserList = () => {
 					handlePages(valor1);
 				}}
 			/>
+
+			<PageUp />
 		</>
 	);
 };
