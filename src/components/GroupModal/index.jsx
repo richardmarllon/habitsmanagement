@@ -10,11 +10,15 @@ import { habitsAPI } from "../../services/api";
 import GoalCard from "../GoalCard";
 import UserDetailsModal from "../UserDetailsModal";
 import { Collapse, Button } from "antd";
+import { useActivities } from "../../Providers/Activities";
+import CreateActivity from "../CreateActivity";
+import UpdateActivity from "../UpdateActivity";
 
 const GroupModal = ({ group }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const { changer, setChanger } = useGroups();
 	const { userGroup, userToken } = useUser();
+	const { userActivities } = useActivities();
 	const { userGoals } = useGoals();
 	const { Panel } = Collapse;
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
@@ -83,7 +87,7 @@ const GroupModal = ({ group }) => {
 				</GoalListContainer>
 				{userGroup === group.id && (
 					<Collapse accordion={true}>
-						<Panel header="Criar metas">
+						<Panel header="Criar metas ">
 							<GoalForm
 								changer={changer}
 								setChanger={setChanger}
@@ -92,6 +96,18 @@ const GroupModal = ({ group }) => {
 						</Panel>
 					</Collapse>
 				)}
+				<div>
+					Lista de atividades:
+					{userActivities.map((item) => {
+						return (
+							<div key={item.id}>
+								{item.title} do grupo {item.group}
+								<UpdateActivity activity={item} />
+							</div>
+						);
+					})}
+				</div>
+				<CreateActivity />
 			</Modal>
 		</>
 	);

@@ -3,7 +3,7 @@ import { useActivities } from "../../Providers/Activities";
 import EditUserModal from "../../components/EditUserModal";
 import AddHabitsModal from "../../components/AddHabitsModal";
 import UpdateActivity from "../../components/UpdateActivity";
-import CreateActivity from "../../components/CreateActivities";
+import CreateActivity from "../../components/CreateActivity";
 import { useHistory } from "react-router";
 import Header from "../../components/Header";
 

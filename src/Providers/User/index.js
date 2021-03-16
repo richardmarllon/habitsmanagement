@@ -7,6 +7,8 @@ export const UserProvider = ({ children }) => {
 	const [user, setUser] = useState(token);
 	const [userToken, setUserToken] = useState(token);
 	const [userGroup, setUserGroup] = useState(null);
+	const [changeGroupSignal, setChangeGroupSignal] = useState(false);
+
 	if (token && typeof user !== "number") {
 		setUser(jwt_decode(token).user_id);
 	}
@@ -19,7 +21,7 @@ export const UserProvider = ({ children }) => {
 			}
 			getUserGroup();
 		}
-	}, [user, token, userGroup]);
+	}, [user, token, userGroup, changeGroupSignal]);
 	return (
 		<UserContext.Provider
 			value={{
@@ -29,6 +31,8 @@ export const UserProvider = ({ children }) => {
 				setUserToken,
 				userGroup,
 				setUserGroup,
+				changeGroupSignal,
+				setChangeGroupSignal,
 			}}
 		>
 			{children}
