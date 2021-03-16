@@ -25,7 +25,10 @@ const EditGoalModal = ({ goal, setChanger, changer }) => {
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),
-		achieved: yup.boolean().required("Campo obrigatório"),
+		achieved: yup
+			.boolean()
+			.typeError("Campo obrigatório")
+			.required("Campo obrigatório"),
 	});
 
 	const { register, handleSubmit, errors, control, reset } = useForm({

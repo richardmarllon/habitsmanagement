@@ -11,3 +11,9 @@ export const Figure = styled.figure`
 		width: 60px;
 	}
 `;
+
+export const GoalListContainer = styled.div`
+	display: flex;
+	justify-content: space-around;
+	flex-flow: row wrap;
+`;

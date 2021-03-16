@@ -12,7 +12,9 @@ export const GroupsListContainer = styled.div`
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
+	margin: 0 auto;
 
 	@media (min-width: 600px) {
+		max-width: 1100px;
 	}
 `;
