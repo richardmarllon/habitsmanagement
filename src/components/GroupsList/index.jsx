@@ -1,16 +1,16 @@
 import { useGroups } from "../../Providers/Groups";
 import { habitsAPI } from "../../services/api";
 import { StyledPagination, GroupsListContainer } from "./style";
-import { useHistory } from "react-router";
 import GroupCard from "../GroupCard";
 import { useEffect, useState } from "react";
+import GroupForm from "../GroupForm ";
+import GroupFormModal from "../GroupFormModal";
 
 const GroupsList = () => {
 	const [totalGroup, setTotalGroup] = useState(0);
 	const { groups, setGroups } = useGroups();
 	const [page, setPage] = useState(1);
 	const [changer, setChanger] = useState(false);
-	const history = useHistory();
 
 	useEffect(() => {
 		async function getGroupsList() {
@@ -27,16 +27,9 @@ const GroupsList = () => {
 
 	return (
 		<div>
-			<h2>GroupList</h2>
-			<button
-				onClick={() => {
-					history.push("/home");
-				}}
-			>
-				voltar para home
-			</button>
-
 			<GroupsListContainer>
+				<GroupFormModal />
+				<GroupForm />
 				{groups.map((group) => (
 					<GroupCard
 						group={group}

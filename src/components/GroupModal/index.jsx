@@ -12,8 +12,6 @@ import GoalForm from "../GoalForm";
 import { useUser } from "../../Providers/User";
 import { useGoals } from "../../Providers/Goals";
 import { habitsAPI } from "../../services/api";
-import EditGoalModal from "../../components/EditGoalModal";
-import EditCardGroup from "../EditCardGrup";
 import GoalCard from "../GoalCard";
 import UserDetailsModal from "../UserDetailsModal";
 import { Collapse, Button } from "antd";
