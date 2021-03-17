@@ -103,18 +103,20 @@ const GroupModal = ({ group }) => {
 						</Panel>
 					</Collapse>
 				)}
-				<ActivityListContainer>
-					Lista de atividades:
-					{userActivities.map((activity) => {
-						return (
-							<ActivitiesContainer key={activity.id}>
-								Atividade: {activity.title}
-								<UpdateActivity activity={activity} />
-							</ActivitiesContainer>
-						);
-					})}
-					<CreateActivity />
-				</ActivityListContainer>
+				{userGroup === group.id && (
+					<ActivityListContainer>
+						Lista de atividades:
+						{userActivities.map((activity) => {
+							return (
+								<ActivitiesContainer key={activity.id}>
+									Atividade: {activity.title}
+									<UpdateActivity activity={activity} />
+								</ActivitiesContainer>
+							);
+						})}
+						<CreateActivity />
+					</ActivityListContainer>
+				)}
 			</Modal>
 		</>
 	);
