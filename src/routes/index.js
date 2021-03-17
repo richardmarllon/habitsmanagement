@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Groups from "../pages/Groups";
 import Habits from "../pages/Habits";
 import Route from "./route";
+import Page404 from "../pages/404";
+import { Route as RouteNotFound } from "react-router-dom";
 
 const Routes = () => {
 	return (
@@ -15,6 +17,9 @@ const Routes = () => {
 			<Route path="/users" exact component={Users} isPrivate />
 			<Route path="/habits" exact component={Habits} isPrivate />
 			<Route path="/groups" component={Groups} isPrivate />
+			<RouteNotFound>
+				<Page404 />
+			</RouteNotFound>
 		</Switch>
 	);
 };
