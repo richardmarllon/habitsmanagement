@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import { SpinStyled, StyledButton } from "./style";
-import { useEffect } from "react";
+import { SpinStyled, StyledButton, StyledIconButton } from "./style";
 import { habitsAPI } from "../../services/api";
 import { Collapse } from "antd";
-import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-const UserDetailsModal = ({ user }) => {
+const UserDetailsModal = ({ user, groupsPage = false }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [userGroup, setUserGroup] = useState({});
 	const [showLoad, SetShowLoad] = useState(true);
@@ -30,9 +28,23 @@ const UserDetailsModal = ({ user }) => {
 
 	return (
 		<>
-			<StyledButton variant="outlined" onClick={showModal}>
-				Detalhes
-			</StyledButton>
+			{groupsPage ? (
+				<StyledIconButton onClick={showModal}>
+					<img
+						alt="user avatar"
+						src={
+							user.id % 2 === 0
+								? "https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png"
+								: "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png"
+						}
+						title={user.username}
+					/>
+				</StyledIconButton>
+			) : (
+				<StyledButton variant="outlined" onClick={showModal}>
+					Detalhes
+				</StyledButton>
+			)}
 			<Modal
 				title={`Usuário: ${user.username}`}
 				visible={isModalVisible}
