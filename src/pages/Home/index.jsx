@@ -1,8 +1,11 @@
 import { useUser } from "../../Providers/User";
 import { useActivities } from "../../Providers/Activities";
+import EditUserModal from "../../components/EditUserModal";
 import AddHabitsModal from "../../components/AddHabitsModal";
-import GoalForm from "../../components/GoalForm";
+import UpdateActivity from "../../components/UpdateActivity";
+import CreateActivity from "../../components/CreateActivity";
 import { useHistory } from "react-router";
+import Header from "../../components/Header";
 
 const Home = () => {
 	const { setUserToken } = useUser();
@@ -16,8 +19,11 @@ const Home = () => {
 
 	return (
 		<div>
+			<Header pageName="Home" />
 			<h1>Home</h1>
 			<button onClick={clearToken}>Sair</button>
+			<EditUserModal />
+			<CreateActivity />
 			<div>
 				<ul>
 					Lista de atividades:
@@ -25,12 +31,12 @@ const Home = () => {
 						return (
 							<li key={item.id}>
 								{item.title} do grupo {item.group}
+								<UpdateActivity activity={item} />
 							</li>
 						);
 					})}
 				</ul>
 				<AddHabitsModal />
-				<GoalForm />
 			</div>
 			<button
 				onClick={() => {
@@ -38,6 +44,20 @@ const Home = () => {
 				}}
 			>
 				ir para habitos
+			</button>
+			<button
+				onClick={() => {
+					history.push("/groups");
+				}}
+			>
+				ir para grupos
+			</button>
+			<button
+				onClick={() => {
+					history.push("/users");
+				}}
+			>
+				ir para usuários
 			</button>
 		</div>
 	);

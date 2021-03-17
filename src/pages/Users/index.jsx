@@ -1,11 +1,7 @@
 import UserList from "../../components/userList";
 
 const Users = () => {
-	return (
-		<div>
-			<UserList />
-		</div>
-	);
+	return <UserList />;
 };
 
 export default Users;

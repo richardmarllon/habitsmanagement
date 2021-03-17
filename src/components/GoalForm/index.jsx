@@ -13,8 +13,9 @@ import {
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 import { useState } from "react";
+import { StyledGoalForm } from "./style";
 
-const GoalForm = () => {
+const GoalForm = ({ changer, setChanger, id }) => {
 	const { userToken } = useUser();
 	const [difficulty, setDifficulty] = useState("");
 
@@ -25,24 +26,22 @@ const GoalForm = () => {
 			.number()
 			.typeError("Escreva um número")
 			.required("Campo Obrigatório"),
-		group: yup
-			.number()
-			.typeError("Escreva um número")
-			.required("Campo Obrigatório"),
 	});
 
-	const { register, handleSubmit, errors, control } = useForm({
+	const { register, handleSubmit, errors, control, reset } = useForm({
 		resolver: yupResolver(schema),
 	});
 
 	const handleForm = (data) => {
+		data.group = id;
 		async function sendData() {
 			const response = await habitsAPI.post("goals/", data, {
 				headers: {
 					Authorization: `Bearer ${JSON.parse(userToken)}`,
 				},
 			});
-			console.log(response);
+			setChanger(!changer);
+			reset();
 		}
 		sendData();
 	};
@@ -53,8 +52,7 @@ const GoalForm = () => {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Criar meta</h1>
+			<StyledGoalForm onSubmit={handleSubmit(handleForm)}>
 				<TextField
 					margin="normal"
 					variant="outlined"
@@ -102,20 +100,10 @@ const GoalForm = () => {
 					error={!!errors.how_much_achieved}
 					helperText={errors.how_much_achieved?.message}
 				/>
-				<TextField
-					margin="normal"
-					variant="outlined"
-					label="Número do grupo"
-					name="group"
-					size="small"
-					color="primary"
-					inputRef={register}
-					error={!!errors.group}
-					helperText={errors.group?.message}
-				/>
-				<Button type="onSubmit">Criar meta</Button>
-			</form>
-			<></>
+				<Button type="onSubmit" variant="outlined">
+					Criar meta
+				</Button>
+			</StyledGoalForm>
 		</>
 	);
 };
