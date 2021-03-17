@@ -13,8 +13,9 @@ export const GroupsListContainer = styled.div`
 	flex-flow: row wrap;
 	justify-content: space-around;
 	margin: 0 auto;
+	width: 100vw;
 
 	@media (min-width: 600px) {
-		max-width: 1100px;
+		max-width: 1400px;
 	}
 `;

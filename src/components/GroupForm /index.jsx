@@ -1,13 +1,12 @@
 import { habitsAPI } from "../../services/api";
-import axios from "axios";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField, Button } from "@material-ui/core";
-import { useContext } from "react";
+import { TextField } from "@material-ui/core";
 import { useUser } from "../../Providers/User";
+import { GroupFormContainer, StyledGroupFormButton } from "./style";
 
-const GroupForm = () => {
+const GroupForm = ({ modal = false }) => {
 	const { userToken } = useUser();
 	console.log(userToken);
 	const schema = yup.object().shape({
@@ -16,9 +15,10 @@ const GroupForm = () => {
 		category: yup.string().required("Campo Obrigatório"),
 	});
 
-	const { register, handleSubmit, errors } = useForm({
+	const { register, handleSubmit, errors, reset } = useForm({
 		resolver: yupResolver(schema),
 	});
+
 	const handleForm = async (data) => {
 		if (userToken !== "") {
 			const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
@@ -27,11 +27,13 @@ const GroupForm = () => {
 				headers: AuthConfig,
 			});
 			console.log(resp);
+			reset();
 		}
 	};
 
 	return (
-		<div>
+		<GroupFormContainer modal={modal}>
+			<h3>Criar um novo grupo</h3>
 			<form onSubmit={handleSubmit(handleForm)}>
 				<div>
 					<TextField
@@ -39,32 +41,35 @@ const GroupForm = () => {
 						label="Nome"
 						size="small"
 						name="name"
+						margin="small"
 						inputRef={register}
 						error={!!errors.name}
 						helperText={errors.name?.message}
 					/>
 					<TextField
 						variant="outlined"
-						label="Descrição"
-						size="small"
-						name="description"
-						inputRef={register}
-						error={!!errors.description}
-						helperText={errors.description?.message}
-					/>
-					<TextField
-						variant="outlined"
 						label="Categoria"
 						size="small"
 						name="category"
+						margin="normal"
 						inputRef={register}
 						error={!!errors.category}
 						helperText={errors.category?.message}
 					/>
+					<TextField
+						variant="outlined"
+						label="Descrição"
+						size="medium"
+						name="description"
+						margin="normal"
+						inputRef={register}
+						error={!!errors.description}
+						helperText={errors.description?.message}
+					/>
 				</div>
-				<Button type="submit">Criar Grupo</Button>
+				<StyledGroupFormButton type="submit">Criar</StyledGroupFormButton>
 			</form>
-		</div>
+		</GroupFormContainer>
 	);
 };
 

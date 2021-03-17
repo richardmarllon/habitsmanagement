@@ -1,18 +1,13 @@
-
-import GroupForm from "../../components/GroupForm ";
 import { useHistory } from "react-router";
-import EditCardGroup from "../../components/EditCardGrup";
-import GroupEdit from "../../components/GroupEdit";
 import GroupsList from "../../components/GroupsList";
+import PageUp from "../../components/PageUp";
 
 const Groups = () => {
 	const history = useHistory();
 
 	return (
 		<div>
-			<GroupForm />
 			<GroupsList />
-		
 			<button
 				onClick={() => {
 					history.push("/home");
@@ -20,6 +15,7 @@ const Groups = () => {
 			>
 				Voltar para home
 			</button>
+			<PageUp />
 		</div>
 	);
 };
