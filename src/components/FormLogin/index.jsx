@@ -7,8 +7,28 @@ import {
 	makeStyles,
 	TextField,
 } from "@material-ui/core/";
+import { ThemeProvider } from "@material-ui/styles";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { Container, Content } from "./style";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "rgba(30, 168, 150, 0.7)",
+		},
+		secondary: {
+			light: "#0066ff",
+			main: "#0044ff",
+
+			contrastText: "#ffcc00",
+		},
+
+		contrastThreshold: 3,
+
+		tonalOffset: 0.2,
+	},
+});
 
 const FormLogin = () => {
 	const { setUserToken } = useUser();
@@ -32,40 +52,51 @@ const FormLogin = () => {
 	};
 
 	return (
-		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Login</h1>
+		<Container>
+			<Content>
+				<form onSubmit={handleSubmit(handleForm)}>
+					<h1>Seja bem vindo</h1>
+					<p>Entre na sua conta : </p>
+					<div>
+						<TextField
+							margin="normal"
+							variant="outlined"
+							label="Nome do usuário"
+							name="username"
+							size="small"
+							color="primary"
+							inputRef={register}
+							error={!!errors.username || !!errors.password}
+							helperText={errors.username?.message}
+						/>
+					</div>
+					<div>
+						<TextField
+							color="secondary"
+							margin="normal"
+							type="password"
+							variant="outlined"
+							label="Senha"
+							name="password"
+							size="small"
+							color="primary"
+							inputRef={register}
+							error={!!errors.password || !!errors.email}
+							helperText={errors.password?.message}
+						/>
+					</div>
+					<div style={{ paddingTop: "30px" }}>
+						<ThemeProvider theme={theme}>
+							<Button variant="contained" color="primary" type="onSubmit">
+								Entrar
+							</Button>
+						</ThemeProvider>
+					</div>
+				</form>
+			</Content>
 
-				<label for="username">Nome de usuário:</label>
-				<TextField
-					margin="normal"
-					variant="outlined"
-					label="username"
-					name="username"
-					size="small"
-					color="primary"
-					inputRef={register}
-					error={!!errors.username || !!errors.password}
-					helperText={errors.username?.message}
-				/>
-
-				<TextField
-					margin="normal"
-					type="password"
-					variant="outlined"
-					label="Senha"
-					name="password"
-					size="small"
-					color="primary"
-					inputRef={register}
-					error={!!errors.password || !!errors.email}
-					helperText={errors.password?.message}
-				/>
-
-				<Button type="onSubmit">Login</Button>
-			</form>
 			<></>
-		</>
+		</Container>
 	);
 };
 
