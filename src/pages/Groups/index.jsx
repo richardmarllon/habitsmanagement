@@ -1,3 +1,5 @@
+
+import GroupForm from "../../components/GroupForm ";
 import { useHistory } from "react-router";
 import EditCardGroup from "../../components/EditCardGrup";
 import GroupEdit from "../../components/GroupEdit";
@@ -8,6 +10,7 @@ const Groups = () => {
 
 	return (
 		<div>
+			<GroupForm />
 			<GroupsList />
 		
 			<button
