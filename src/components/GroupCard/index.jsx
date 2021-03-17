@@ -2,8 +2,9 @@ import { useUser } from "../../Providers/User";
 import { habitsAPI } from "../../services/api";
 import { GroupContainer, ParticipantContainer, StyledButton } from "./style";
 import GroupModal from "../GroupModal";
+import UserDetailsModal from "../UserDetailsModal";
 
-const GroupCard = ({ group }) => {
+const GroupCard = ({ group, setChanger, changer }) => {
 	const { userGroup, userToken, setUserGroup } = useUser();
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
@@ -17,6 +18,7 @@ const GroupCard = ({ group }) => {
 			response.statusText
 		);
 		setUserGroup(group.id);
+		setChanger(!changer);
 	};
 
 	return (
@@ -25,17 +27,13 @@ const GroupCard = ({ group }) => {
 			<h5>Qtd de participantes: {group.users.length}</h5>
 			<ParticipantContainer>
 				<h4>Participantes: </h4>
-				{group.users.map((user, index) => (
-					<img
-						alt="user avatar"
-						key={index}
-						src={
-							user.id % 2 === 0
-								? "https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png"
-								: "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png"
-						}
-					/>
-				))}
+				{!!!group.users[0] ? (
+					<p>Nenhum participante</p>
+				) : (
+					group.users.map((user, index) => (
+						<UserDetailsModal user={user} key={index} groupsPage />
+					))
+				)}
 			</ParticipantContainer>
 			<div>
 				{group.id === userGroup ? (

@@ -25,7 +25,10 @@ const EditGoalModal = ({ goal, setChanger, changer }) => {
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),
-		achieved: yup.boolean().required("Campo obrigatório"),
+		achieved: yup
+			.boolean()
+			.typeError("Campo obrigatório")
+			.required("Campo obrigatório"),
 	});
 
 	const { register, handleSubmit, errors, control, reset } = useForm({
@@ -71,7 +74,7 @@ const EditGoalModal = ({ goal, setChanger, changer }) => {
 				<EditOutlined />
 			</Button>
 			<Modal
-				title={`Você está editando o habito: ${goal.title}`}
+				title={`Você está editando a meta: ${goal.title}`}
 				visible={isModalVisible}
 				onOk={handleSubmit(handleForm)}
 				onCancel={handleCancel}

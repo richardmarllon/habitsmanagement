@@ -13,6 +13,7 @@ import {
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 import { useState } from "react";
+import { StyledGoalForm } from "./style";
 
 const GoalForm = ({ changer, setChanger, id }) => {
 	const { userToken } = useUser();
@@ -51,8 +52,7 @@ const GoalForm = ({ changer, setChanger, id }) => {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Criar meta</h1>
+			<StyledGoalForm onSubmit={handleSubmit(handleForm)}>
 				<TextField
 					margin="normal"
 					variant="outlined"
@@ -100,8 +100,10 @@ const GoalForm = ({ changer, setChanger, id }) => {
 					error={!!errors.how_much_achieved}
 					helperText={errors.how_much_achieved?.message}
 				/>
-				<Button type="onSubmit">Criar meta</Button>
-			</form>
+				<Button type="onSubmit" variant="outlined">
+					Criar meta
+				</Button>
+			</StyledGoalForm>
 		</>
 	);
 };

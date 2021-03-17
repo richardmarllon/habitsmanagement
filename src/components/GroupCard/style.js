@@ -2,20 +2,27 @@ import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
 export const GroupContainer = styled.div`
-	max-width: 300px;
 	margin: 10px auto;
 	text-align: center;
 	padding: 15px;
-	background-color: rgba(0, 53, 84, 0.15);
+	border: 1px solid #1ea896;
 	border-radius: 10px;
 	justify-content: space-around;
+	align-items: center;
+	height: 300px;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
 
 	h3 {
 		background-color: white;
+		padding: 3px 5px;
 	}
 
 	@media (min-width: 600px) {
 		margin: 10px 25px;
+		background-color: rgba(0, 53, 84, 0.15);
+		border: none;
 
 		h5 {
 			display: none;
@@ -28,10 +35,6 @@ export const ParticipantContainer = styled.div`
 
 	h3 {
 		display: block;
-	}
-
-	img {
-		width: 50px;
 	}
 
 	@media (min-width: 600px) {

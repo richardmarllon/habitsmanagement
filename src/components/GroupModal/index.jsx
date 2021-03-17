@@ -1,22 +1,33 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import { StyledButton } from "../GroupCard/style";
-import { Figure } from "./style";
+import {
+	ActivitiesContainer,
+	Figure,
+	GoalListContainer,
+	ActivityListContainer,
+} from "./style";
 import { useGroups } from "../../Providers/Groups";
 import GoalForm from "../GoalForm";
 import { useUser } from "../../Providers/User";
 import { useGoals } from "../../Providers/Goals";
-import { Button } from "@material-ui/core";
-import { DeleteOutlined } from "@ant-design/icons";
 import { habitsAPI } from "../../services/api";
 import EditGoalModal from "../../components/EditGoalModal";
 import EditCardGroup from "../EditCardGrup";
+import GoalCard from "../GoalCard";
+import UserDetailsModal from "../UserDetailsModal";
+import { Collapse, Button } from "antd";
+import { useActivities } from "../../Providers/Activities";
+import CreateActivity from "../CreateActivity";
+import UpdateActivity from "../UpdateActivity";
 
 const GroupModal = ({ group }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const { changer, setChanger } = useGroups();
 	const { userGroup, userToken } = useUser();
+	const { userActivities } = useActivities();
 	const { userGoals } = useGoals();
+	const { Panel } = Collapse;
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const handleDelete = async (goal) => {
@@ -50,59 +61,60 @@ const GroupModal = ({ group }) => {
 				visible={isModalVisible}
 				onCancel={handleCancel}
 				onOk={() => setIsModalVisible(false)}
+				footer={[
+					<Button type="primary" onClick={handleCancel}>
+						Fechar
+					</Button>,
+				]}
 			>
 				<h1>{group.name}</h1>
 				<h2>{group.category}</h2>
 				<p>{group.description}</p>
 				<div>
 					{group.users.map((user, index) => (
-						<Figure>
-							<img
-								alt="user avatar"
-								key={index}
-								src={
-									user.id % 2 === 0
-										? "https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png"
-										: "https://www.kindpng.com/picc/m/163-1636340_user-avatar-icon-avatar-transparent-user-icon-png.png"
-								}
-							/>
+						<Figure key={index}>
+							<UserDetailsModal user={user} groupsPage />
 							<figcaption>{user.username}</figcaption>
 						</Figure>
 					))}
 				</div>
-				{userGroup === group.id && <h3>Lista de metas pessoais:</h3> &&
-					userGoals &&
-					userGoals.map((goal, index) => {
+				{userGroup === group.id && <p>Lista de metas pessoais:</p>}
+				<GoalListContainer>
+					{userGroup === group.id &&
+						userGoals &&
+						userGoals.map((goal, index) => (
+							<GoalCard
+								key={index}
+								goal={goal}
+								handleDelete={handleDelete}
+								changer={changer}
+								setChanger={setChanger}
+							/>
+						))}
+				</GoalListContainer>
+				{userGroup === group.id && (
+					<Collapse accordion={true}>
+						<Panel header="Criar metas ">
+							<GoalForm
+								changer={changer}
+								setChanger={setChanger}
+								id={group.id}
+							/>
+						</Panel>
+					</Collapse>
+				)}
+				<ActivityListContainer>
+					Lista de atividades:
+					{userActivities.map((activity) => {
 						return (
-							<li key={index}>
-								<span>nome: "{goal.title}" </span>
-								<span>vezes realizado: {goal.how_much_achieved} </span>
-								<span>nível de dificuldade: {goal.difficulty} </span>
-								<span>já alcançou? {goal.achieved ? "Sim" : "Não"}</span>
-								<span> ----- </span>
-								<EditGoalModal
-									goal={goal}
-									changer={changer}
-									setChanger={setChanger}
-								/>
-								<Button
-									variant="outlined"
-									color="secondary"
-									onClick={() => {
-										handleDelete(goal);
-									}}
-								>
-									<DeleteOutlined />
-								</Button>
-							</li>
+							<ActivitiesContainer key={activity.id}>
+								Atividade: {activity.title}
+								<UpdateActivity activity={activity} />
+							</ActivitiesContainer>
 						);
 					})}
-				{userGroup === group.id && (
-					<GoalForm changer={changer} setChanger={setChanger} id={group.id} />
-				)}
-					{userGroup === group.id && (
-					<EditCardGroup/>
-				)}
+					<CreateActivity />
+				</ActivityListContainer>
 			</Modal>
 		</>
 	);

@@ -14,8 +14,8 @@ export const UsersContainer = styled.div`
 `;
 
 export const StyledPagination = styled(Pagination)`
-	margin: 3rem auto;
+	margin: 1rem auto;
 	font-size: 1rem;
 	text-align: center;
-	padding: 0 0 3rem 0;
+	padding: 0 0 15vh 0;
 `;

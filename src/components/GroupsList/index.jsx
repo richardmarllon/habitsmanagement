@@ -6,9 +6,10 @@ import GroupCard from "../GroupCard";
 import { useEffect, useState } from "react";
 
 const GroupsList = () => {
+	const [totalGroup, setTotalGroup] = useState(0);
 	const { groups, setGroups } = useGroups();
 	const [page, setPage] = useState(1);
-	const [totalGroup, setTotalGroup] = useState(0);
+	const [changer, setChanger] = useState(false);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -18,7 +19,7 @@ const GroupsList = () => {
 			setGroups(response.data.results);
 		}
 		getGroupsList();
-	}, [page]);
+	}, [page, changer]);
 
 	const handlePages = (value) => {
 		setPage(value);
@@ -37,7 +38,12 @@ const GroupsList = () => {
 
 			<GroupsListContainer>
 				{groups.map((group) => (
-					<GroupCard group={group} key={group.id} />
+					<GroupCard
+						group={group}
+						key={group.id}
+						setChanger={setChanger}
+						changer={changer}
+					/>
 				))}
 			</GroupsListContainer>
 			<StyledPagination
