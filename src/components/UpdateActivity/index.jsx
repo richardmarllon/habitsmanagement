@@ -10,9 +10,11 @@ import React, { useState } from "react";
 import { Modal } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useUser } from "../../Providers/User";
+import { useGroups } from "../../Providers/Groups";
 
 const UpdateActivity = ({ activity }) => {
 	const { userToken } = useUser();
+	const { changer, setChanger } = useGroups();
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const { calendar, setCalendar } = useCalendar();
@@ -48,6 +50,7 @@ const UpdateActivity = ({ activity }) => {
 			headers: AuthConfig,
 		});
 		setModalVisible(false);
+		setChanger(!changer);
 	};
 
 	const handleForm = async (data) => {
@@ -57,6 +60,7 @@ const UpdateActivity = ({ activity }) => {
 		});
 		reset();
 		setModalVisible(false);
+		setChanger(!changer);
 	};
 	return (
 		<>

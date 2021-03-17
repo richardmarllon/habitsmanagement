@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Modal } from "antd";
 import { StyledButton } from "../GroupCard/style";
-import { Figure, GoalListContainer } from "./style";
+import {
+	ActivitiesContainer,
+	Figure,
+	GoalListContainer,
+	ActivityListContainer,
+} from "./style";
 import { useGroups } from "../../Providers/Groups";
 import GoalForm from "../GoalForm";
 import { useUser } from "../../Providers/User";
@@ -96,18 +101,18 @@ const GroupModal = ({ group }) => {
 						</Panel>
 					</Collapse>
 				)}
-				<div>
+				<ActivityListContainer>
 					Lista de atividades:
-					{userActivities.map((item) => {
+					{userActivities.map((activity) => {
 						return (
-							<div key={item.id}>
-								{item.title} do grupo {item.group}
-								<UpdateActivity activity={item} />
-							</div>
+							<ActivitiesContainer key={activity.id}>
+								Atividade: {activity.title}
+								<UpdateActivity activity={activity} />
+							</ActivitiesContainer>
 						);
 					})}
-				</div>
-				<CreateActivity />
+					<CreateActivity />
+				</ActivityListContainer>
 			</Modal>
 		</>
 	);

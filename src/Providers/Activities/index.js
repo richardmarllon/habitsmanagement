@@ -14,6 +14,7 @@ export const ActivitiesProvider = ({ children }) => {
 	useEffect(() => {
 		if (userToken !== "") {
 			const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
+
 			async function GetActivities() {
 				const response = await habitsAPI.get(
 					`activities/?group=${userGroup}&page=1`,
