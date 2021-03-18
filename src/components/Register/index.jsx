@@ -2,7 +2,27 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, createMuiTheme } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
+import { Container, Content } from "./style";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "rgba(30, 168, 150, 0.7)",
+		},
+		secondary: {
+			light: "#0066ff",
+			main: "#0044ff",
+
+			contrastText: "#ffcc00",
+		},
+
+		contrastThreshold: 3,
+
+		tonalOffset: 0.2,
+	},
+});
 
 const Register = () => {
 	const schema = yup.object().shape({
@@ -35,61 +55,70 @@ const Register = () => {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit(handleForm)}>
-				<h1>Registre-se</h1>
-				<TextField
-					variant="outlined"
-					label="Usuário"
-					size="small"
-					name="username"
-					inputRef={register}
-					error={!!errors.username}
-					helperText={errors.username?.message}
-				/>
-				<br />
-				<br />
-				<TextField
-					variant="outlined"
-					label="Email"
-					size="small"
-					name="email"
-					inputRef={register}
-					error={!!errors.email}
-					helperText={errors.email?.message}
-				/>
-				<br />
-				<br />
-				<TextField
-					variant="outlined"
-					type="password"
-					label="Senha"
-					size="small"
-					name="password"
-					inputRef={register}
-					error={!!errors.password}
-					helperText={errors.password?.message}
-				/>
-				<br />
-				<br />
-				<TextField
-					variant="outlined"
-					type="password"
-					label="Comfirmar senha"
-					size="small"
-					name="confirmPassword"
-					inputRef={register}
-					error={!!errors.confirmPassword}
-					helperText={errors.confirmPassword?.message}
-				/>
-				<br />
-				<br />
-				<Button variant="contained" color="primary">
-					Voltar
-				</Button>
-				<Button type="submit" variant="contained" color="secondary">
-					Criar
-				</Button>
-			</form>
+			<Container>
+				<Content>
+					<form onSubmit={handleSubmit(handleForm)}>
+						<h1>Seja bem vindo</h1>
+						<p>Registre-se : </p>
+
+						<TextField
+							color="primary"
+							variant="outlined"
+							label="Usuário"
+							size="small"
+							name="username"
+							inputRef={register}
+							error={!!errors.username}
+							helperText={errors.username?.message}
+						/>
+
+						<br />
+						<br />
+						<TextField
+							variant="outlined"
+							label="Email"
+							size="small"
+							name="email"
+							inputRef={register}
+							error={!!errors.email}
+							helperText={errors.email?.message}
+						/>
+						<br />
+						<br />
+						<TextField
+							variant="outlined"
+							type="password"
+							label="Senha"
+							size="small"
+							name="password"
+							inputRef={register}
+							error={!!errors.password}
+							helperText={errors.password?.message}
+						/>
+						<br />
+						<br />
+						<TextField
+							variant="outlined"
+							type="password"
+							label="Comfirmar senha"
+							size="small"
+							name="confirmPassword"
+							inputRef={register}
+							error={!!errors.confirmPassword}
+							helperText={errors.confirmPassword?.message}
+						/>
+						<br />
+						<br />
+						<div style={{ paddingBottom: "15px" }}>
+							<ThemeProvider theme={theme}>
+								<Button type="submit" variant="contained" color="primary">
+									Criar
+								</Button>
+							</ThemeProvider>
+						</div>
+					</form>
+				</Content>
+			</Container>
 		</>
 	);
 };
