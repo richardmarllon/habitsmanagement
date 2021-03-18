@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 const UserContext = createContext();
+
 export const UserProvider = ({ children }) => {
 	const token = localStorage.getItem("token") || "";
 	const [user, setUser] = useState(token);

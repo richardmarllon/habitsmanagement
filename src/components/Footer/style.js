@@ -19,3 +19,15 @@ export const LinkedinLogo = styled.img`
 		width: 20px;
 	}
 `;
+
+export const ImageContainer = styled.img`
+	margin-left: 2%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	@media only screen and (min-width: 600px) {
+		margin-left: 0.2rem;
+		margin-top: 0.2rem;
+		margin-bottom: 0.2rem;
+		width: 5vw;
+	}
+`;

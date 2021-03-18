@@ -32,7 +32,7 @@ const GroupFormModal = () => {
 					</Button>,
 				]}
 			>
-				<GroupForm modal />
+				<GroupForm modal setIsModalVisible={setIsModalVisible} />
 			</Modal>
 		</GroupFormModalContainer>
 	);

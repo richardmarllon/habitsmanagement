@@ -9,10 +9,11 @@ export const GroupContainer = styled.div`
 	border-radius: 10px;
 	justify-content: space-around;
 	align-items: center;
-	height: 300px;
-	width: 300px;
+	height: 30vh;
 	display: flex;
 	flex-direction: column;
+	max-width: 300px;
+	width: 95vw;
 
 	h3 {
 		background-color: white;
@@ -23,6 +24,8 @@ export const GroupContainer = styled.div`
 		margin: 10px 25px;
 		background-color: rgba(0, 53, 84, 0.15);
 		border: none;
+		height: 300px;
+		width: 300px;
 
 		h5 {
 			display: none;
@@ -50,4 +53,5 @@ export const StyledButton = styled(Button)`
 			: "rgba(30, 168, 150, 0.80)"}!important;
 	border-radius: 7px;
 	margin: 0px 5px !important;
+	max-width: 45%;
 `;

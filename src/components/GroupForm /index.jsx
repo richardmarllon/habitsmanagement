@@ -5,10 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField } from "@material-ui/core";
 import { useUser } from "../../Providers/User";
 import { GroupFormContainer, StyledGroupFormButton } from "./style";
+import { useGroups } from "../../Providers/Groups";
 
-const GroupForm = ({ modal = false }) => {
+const GroupForm = ({ modal = false, setIsModalVisible }) => {
 	const { userToken } = useUser();
-	console.log(userToken);
+	const { changer, setChanger } = useGroups();
 	const schema = yup.object().shape({
 		name: yup.string().required("Campo Obrigatório"),
 		description: yup.string().required("Campo Obrigatório"),
@@ -26,7 +27,15 @@ const GroupForm = ({ modal = false }) => {
 			const resp = await habitsAPI.post(`groups/`, data, {
 				headers: AuthConfig,
 			});
-			console.log(resp);
+			let enterGroup = await habitsAPI.post(
+				`groups/${resp.data.id}/subscribe/`,
+				null,
+				{
+					headers: AuthConfig,
+				}
+			);
+			setIsModalVisible(false);
+			setChanger(!changer);
 			reset();
 		}
 	};

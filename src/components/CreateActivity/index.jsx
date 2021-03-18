@@ -10,8 +10,7 @@ import { useUser } from "../../Providers/User";
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { useGroups } from "../../Providers/Groups";
-
-//OBS.: Faltando receber a informaçao do grupo na linha 46.
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const CreateActivity = () => {
 	const { userToken, userGroup } = useUser();
@@ -57,8 +56,13 @@ const CreateActivity = () => {
 	};
 	return (
 		<>
-			<Button type="primary" onClick={showModal} variant="outlined">
-				Nova atividade +
+			<Button
+				type="primary"
+				onClick={showModal}
+				variant="outlined"
+				style={{ margin: 0, padding: 0, height: "20px", width: "50px" }}
+			>
+				<PlusCircleOutlined />
 			</Button>
 			<Modal
 				title={`Você está criando uma nova atividade`}
