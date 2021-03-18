@@ -10,7 +10,7 @@ import {
 import { ThemeProvider } from "@material-ui/styles";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
-import { Container, Content } from "./style";
+import { Container, Content, SpaceTop, StyledButton } from "./style";
 
 const theme = createMuiTheme({
 	palette: {
@@ -31,11 +31,14 @@ const theme = createMuiTheme({
 });
 
 const FormLogin = () => {
-	const { setUserToken } = useUser();
+	const { setUserToken, showLogin, setShowLogin } = useUser();
 
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
-		password: yup.string().min(6, "minimo de 6").required("Campo Obrigatório"),
+		password: yup
+			.string()
+			.min(6, "Mínimo de 6 caracteres")
+			.required("Campo Obrigatório"),
 	});
 
 	const { register, handleSubmit, errors } = useForm({
@@ -54,10 +57,11 @@ const FormLogin = () => {
 	return (
 		<Container>
 			<Content>
-				<form onSubmit={handleSubmit(handleForm)}>
-					<h1>Seja bem vindo</h1>
-					<p>Entre na sua conta : </p>
-					<div>
+				<div>
+					<form onSubmit={handleSubmit(handleForm)}>
+						<h1>Seja bem vindo</h1>
+						<p>Entre na sua conta : </p>
+						<SpaceTop />
 						<TextField
 							margin="normal"
 							variant="outlined"
@@ -69,8 +73,7 @@ const FormLogin = () => {
 							error={!!errors.username || !!errors.password}
 							helperText={errors.username?.message}
 						/>
-					</div>
-					<div>
+
 						<TextField
 							color="secondary"
 							margin="normal"
@@ -84,15 +87,24 @@ const FormLogin = () => {
 							error={!!errors.password || !!errors.email}
 							helperText={errors.password?.message}
 						/>
-					</div>
-					<div style={{ paddingTop: "30px" }}>
-						<ThemeProvider theme={theme}>
-							<Button variant="contained" color="primary" type="onSubmit">
-								Entrar
-							</Button>
-						</ThemeProvider>
-					</div>
-				</form>
+						<div>
+							<ThemeProvider theme={theme}>
+								<StyledButton
+									variant="contained"
+									color="primary"
+									type="onSubmit"
+									onKeyDown={(e) => {
+										if (e === "Enter") {
+											handleSubmit(handleForm);
+										}
+									}}
+								>
+									Entrar
+								</StyledButton>
+							</ThemeProvider>
+						</div>
+					</form>
+				</div>
 			</Content>
 
 			<></>

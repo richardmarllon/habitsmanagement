@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 
@@ -5,7 +6,8 @@ export const HeaderContainer = styled.div`
 	display: none;
 	@media only screen and (min-width: 600px) {
 		max-width: 100vw;
-		background-color: #003554;
+		background-color: ${(props) =>
+		props.backgroundColor ? "transparent" : "#003554"};
 		height: 10vh;
 		color: white;
 		display: flex;
@@ -19,7 +21,8 @@ export const HeaderContainer = styled.div`
 
 export const MobileHeaderContainer = styled.div`
 	max-width: 100vw;
-	background-color: #003554;
+	background-color: ${(props) =>
+		props.backgroundColor ? "transparent" : "#003554"};
 	height: 10vh;
 	color: white;
 	display: flex;
