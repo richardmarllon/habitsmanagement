@@ -18,6 +18,7 @@ import { StyledGoalForm } from "./style";
 const GoalForm = ({ changer, setChanger, id }) => {
 	const { userToken } = useUser();
 	const [difficulty, setDifficulty] = useState("");
+	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const schema = yup.object().shape({
 		title: yup.string().required("Campo Obrigatório"),

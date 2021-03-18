@@ -7,6 +7,7 @@ export const StyledPagination = styled(Pagination)`
 	font-size: 1rem;
 	text-align: center;
 	padding: 0 0 3rem 0;
+	padding-bottom: 15vh;
 `;
 
 export const GroupsListContainer = styled.div`
