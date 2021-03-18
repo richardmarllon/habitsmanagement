@@ -11,9 +11,16 @@ import MenuComponent from "../Menu";
 import { useUser } from "../../Providers/User";
 import { useHistory } from "react-router-dom";
 
-const Header = ({ pageName, clearToken }) => {
-	const { userToken } = useUser();
+const Header = ({ pageName }) => {
+	const { userToken, setUserToken } = useUser();
 	const history = useHistory();
+
+	const logOut = () => {
+		localStorage.clear();
+		setUserToken(null);
+		history.push("/");
+	};
+
 	return (
 		<>
 			{userToken ? (
@@ -47,7 +54,7 @@ const Header = ({ pageName, clearToken }) => {
 						>
 							USUÁRIOS
 						</ButtonMenu>
-						<ButtonMenu variant="contained" onClick={clearToken}>
+						<ButtonMenu variant="contained" onClick={logOut}>
 							SAIR
 						</ButtonMenu>
 					</ButtonsContainer>
@@ -66,7 +73,7 @@ const Header = ({ pageName, clearToken }) => {
 			<MobileHeaderContainer>
 				<ImageContainer alt="" src="logo.png" />
 				<ButtonsContainer>
-					<MenuComponent clearToken={clearToken} />
+					<MenuComponent logOut={logOut} />
 				</ButtonsContainer>
 			</MobileHeaderContainer>
 		</>

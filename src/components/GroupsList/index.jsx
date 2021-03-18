@@ -15,9 +15,8 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 const GroupsList = () => {
 	const [totalGroup, setTotalGroup] = useState(0);
-	const { groups, setGroups } = useGroups();
+	const { groups, setGroups, changer, setChanger } = useGroups();
 	const [page, setPage] = useState(1);
-	const [changer, setChanger] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const antIcon = <LoadingOutlined style={{ fontSize: 55 }} spin />;
 

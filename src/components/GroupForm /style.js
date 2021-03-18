@@ -21,7 +21,7 @@ export const GroupFormContainer = styled(GroupContainer)`
 		`}
 
 	input {
-		background-color: rgb(196, 196, 196);
+		background-color: rgba(196, 196, 196, 0.5);
 	}
 
 	@media (min-width: 600px) {

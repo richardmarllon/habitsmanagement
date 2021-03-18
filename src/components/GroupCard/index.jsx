@@ -12,11 +12,6 @@ const GroupCard = ({ group, setChanger, changer }) => {
 		let response = await habitsAPI.post(`groups/${group.id}/subscribe/`, null, {
 			headers: AuthConfig,
 		});
-		console.log(
-			`RESPOSTA ENTRAR NO GRUPO ${group.id} => `,
-			response.status,
-			response.statusText
-		);
 		setUserGroup(group.id);
 		setChanger(!changer);
 	};
@@ -27,7 +22,7 @@ const GroupCard = ({ group, setChanger, changer }) => {
 			<h5>Qtd de participantes: {group.users.length}</h5>
 			<ParticipantContainer>
 				<h4>Participantes: </h4>
-				{!!!group.users[0] ? (
+				{!group.users[0] ? (
 					<p>Nenhum participante</p>
 				) : (
 					group.users.map((user, index) => (

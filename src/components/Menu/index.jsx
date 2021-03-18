@@ -8,7 +8,6 @@ import {
 } from "./style";
 import {
 	WechatFilled,
-	ScheduleFilled,
 	HomeFilled,
 	LogoutOutlined,
 	LoginOutlined,
@@ -18,7 +17,7 @@ import {
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const MenuComponent = (props) => {
+const MenuComponent = ({ logOut }) => {
 	const history = useHistory();
 	const { userToken } = useUser();
 	const [collapsed, setCollapsed] = useState(false);
@@ -54,7 +53,7 @@ const MenuComponent = (props) => {
 									key="2"
 									icon={<WechatFilled />}
 									title="GRUPOS"
-									onTitleClick={() => {
+									onClick={() => {
 										history.push("/groups");
 									}}
 								></Menu.Item>
@@ -68,7 +67,7 @@ const MenuComponent = (props) => {
 								<Menu.Item
 									key="4"
 									icon={<LogoutOutlined />}
-									onClick={props.clearToken}
+									onClick={logOut}
 								></Menu.Item>
 							</>
 						) : (

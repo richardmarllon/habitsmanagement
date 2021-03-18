@@ -11,6 +11,8 @@ export const OpenGroupButton = styled(Button)`
 	display: flex !important ;
 	justify-content: space-between !important ;
 	align-items: center !important;
+	margin-top: 10px !important;
+	max-width: 95vw !important;
 `;
 
 export const GroupFormModalContainer = styled.div`
