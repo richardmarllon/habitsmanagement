@@ -46,13 +46,7 @@ const UserList = () => {
 					<SpinStyled indicator={antIcon} />
 				</LoadingDiv>
 			)}
-			<Button
-				onClick={() => {
-					history.push("/home");
-				}}
-			>
-				HOME
-			</Button>
+
 			<UsersContainer>
 				{users.map((user) => {
 					return (

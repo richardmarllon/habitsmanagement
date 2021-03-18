@@ -28,6 +28,8 @@ import {
 	ButtonsCard,
 	HeaderHome,
 } from "./style";
+import PersonalHabitsList from "../../components/PersonalHabitsList";
+import AddHabitsModal from "../../components/AddHabitsModal";
 
 const Home = () => {
 	const { setUserToken, userGroup } = useUser();
@@ -235,27 +237,9 @@ const Home = () => {
 					</CardContainer>
 					<CardContainer>
 						<h1>Hábitos</h1>
-
-						{personalHabits.length !== 0 && (
-							<h3>
-								<li>{personalHabits[personalHabits.length - 1].title}</li>
-								{personalHabits.length >= 2 && (
-									<li>{personalHabits[personalHabits.length - 2].title}</li>
-								)}
-								{personalHabits.length >= 3 && (
-									<li>{personalHabits[personalHabits.length - 3].title}</li>
-								)}
-							</h3>
-						)}
+						<PersonalHabitsList />
 						<ButtonsCard>
-							<Button
-								className="buttonCard"
-								onClick={() => {
-									history.push("/habits");
-								}}
-							>
-								Gerenciar Hábitos
-							</Button>
+							<AddHabitsModal />
 						</ButtonsCard>
 					</CardContainer>
 

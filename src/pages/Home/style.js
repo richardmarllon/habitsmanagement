@@ -158,7 +158,8 @@ export const CardContainer = styled.div`
 	@media only screen and (min-width: 600px) {
 		border: solid 1px #1ea896;
 		max-width: 30vw;
-		min-height: 70vh;
+		height: 70vh;
+		overflow: auto;
 	}
 `;
 
