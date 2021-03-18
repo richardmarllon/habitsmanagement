@@ -16,8 +16,10 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { useHabits } from "../../Providers/Habits";
 
 const EditHabitsModal = ({ habit }) => {
+	const { update, setUpdate } = useHabits();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [difficulty, setDifficulty] = useState("");
 	const { userToken } = useUser();
@@ -45,6 +47,7 @@ const EditHabitsModal = ({ habit }) => {
 		});
 		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
 		reset();
+		setUpdate(!update);
 		setIsModalVisible(false);
 	};
 
@@ -53,6 +56,7 @@ const EditHabitsModal = ({ habit }) => {
 			headers: AuthConfig,
 		});
 		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
+		setUpdate(!update);
 		setIsModalVisible(false);
 	};
 
