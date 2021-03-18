@@ -1,7 +1,12 @@
 import UserList from "../../components/userList";
+import { Fade } from "react-awesome-reveal";
 
 const Users = () => {
-	return <UserList />;
+	return (
+		<Fade>
+			<UserList />
+		</Fade>
+	);
 };
 
 export default Users;

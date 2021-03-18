@@ -51,7 +51,7 @@ const UserDetailsModal = ({ user, groupsPage = false }) => {
 				onCancel={handleOk}
 				footer={[
 					<Button type="primary" onClick={handleOk}>
-						Fechar
+						
 					</Button>,
 				]}
 			>
