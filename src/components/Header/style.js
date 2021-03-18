@@ -1,8 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const HeaderContainer = styled.div`
 	width: 100%;
-	background-color: #003554;
+
+	background-color: ${(props) =>
+		props.backgroundColor ? "transparent" : "#003554"};
 	color: white;
 	display: flex;
 	justify-content: space-between;

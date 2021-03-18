@@ -8,16 +8,16 @@ import { Button } from "@material-ui/core";
 import MenuComponent from "../Menu";
 import { useUser } from "../../Providers/User";
 
-const Header = (props) => {
+const Header = ({ pageName, backgroundColor = false }) => {
 	const { userToken } = useUser();
 	return (
 		<>
-			<HeaderContainer>
+			<HeaderContainer backgroundColor={backgroundColor}>
 				{window.screen.width > 600 ? (
 					userToken ? (
 						<>
 							<ImageContainer alt="" src="logo.png" />
-							<TextContainer>{props.pageName}</TextContainer>
+							<TextContainer>{pageName}</TextContainer>
 							<ButtonsContainer>
 								<Button
 									variant="contained"
@@ -68,7 +68,7 @@ const Header = (props) => {
 					) : (
 						<>
 							<ImageContainer alt="" src="logo.png" />
-							<TextContainer>{props.pageName}</TextContainer>
+							<TextContainer>{pageName}</TextContainer>
 							<ButtonsContainer>
 								<Button
 									variant="contained"
@@ -98,7 +98,7 @@ const Header = (props) => {
 				) : (
 					<>
 						<ImageContainer alt="" src="logo.png" />
-						<TextContainer>{props.pageName}</TextContainer>
+						<TextContainer>{pageName}</TextContainer>
 						<ButtonsContainer>
 							<MenuComponent />
 						</ButtonsContainer>
