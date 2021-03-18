@@ -5,20 +5,23 @@ import { HabitsProvider } from "./Habits";
 import { UserProvider } from "./User";
 import { UsersProvider } from "./Users";
 import { CalendarProvider } from "./Calendar";
+import { GroupProvider } from "./Group";
 
 const Providers = ({ children }) => {
 	return (
 		<UserProvider>
 			<GroupsProvider>
-				<GoalsProvider>
-					<HabitsProvider>
-						<UsersProvider>
-							<ActivitiesProvider>
-								<CalendarProvider>{children}</CalendarProvider>
-							</ActivitiesProvider>
-						</UsersProvider>
-					</HabitsProvider>
-				</GoalsProvider>
+				<GroupProvider>
+					<GoalsProvider>
+						<HabitsProvider>
+							<UsersProvider>
+								<ActivitiesProvider>
+									<CalendarProvider>{children}</CalendarProvider>
+								</ActivitiesProvider>
+							</UsersProvider>
+						</HabitsProvider>
+					</GoalsProvider>
+				</GroupProvider>
 			</GroupsProvider>
 		</UserProvider>
 	);

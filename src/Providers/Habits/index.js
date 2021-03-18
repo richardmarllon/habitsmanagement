@@ -20,7 +20,7 @@ export const HabitsProvider = ({ children }) => {
 			}
 			GetPersonalHabits();
 		}
-	}, [personalHabits, userToken]);
+	}, [userToken, setPersonalHabits]);
 
 	return (
 		<HabitsContext.Provider

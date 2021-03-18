@@ -1,9 +1,9 @@
-import { ContactsContainer, LinkedinLogo } from "./style";
+import { ContactsContainer, LinkedinLogo, ImageContainer } from "./style";
 
 const Footer = () => {
 	return (
 		<>
-			<img alt="" src="logo.png" />
+			<ImageContainer alt="" src="logo.png" />
 			<ContactsContainer>
 				<a href="https://www.linkedin.com/in/danilo-kvet">
 					<LinkedinLogo
