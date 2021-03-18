@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { EditOutlined } from "@ant-design/icons";
 
 const EditUserModal = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -41,7 +42,7 @@ const EditUserModal = () => {
 	return (
 		<>
 			<Button type="primary" onClick={showModal} variant="outlined">
-				Alterar nome de usuário
+				<EditOutlined />
 			</Button>
 			<Modal
 				title="Alterar nome de usuário"

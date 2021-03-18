@@ -6,20 +6,24 @@ const ActivitiesContext = createContext();
 
 export const ActivitiesProvider = ({ children }) => {
 	const [activities, setActivities] = useState([]);
-	const { userToken } = useUser();
+	const { userToken, userGroup } = useUser();
 
 	useEffect(() => {
 		if (userToken !== "") {
 			const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 			async function GetActivities() {
-				const response = await habitsAPI.get(`activities/`, {
-					headers: AuthConfig,
-				});
+				const response = await habitsAPI.get(
+					`activities/?group=${userGroup}&page=1`,
+					{
+						headers: AuthConfig,
+					}
+				);
+
 				setActivities(response.data.results);
 			}
 			GetActivities();
 		}
-	}, [userToken]);
+	}, [userToken, userGroup]);
 
 	return (
 		<ActivitiesContext.Provider value={{ activities, setActivities }}>

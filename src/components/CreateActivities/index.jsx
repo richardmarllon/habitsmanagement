@@ -9,11 +9,10 @@ import { useCalendar } from "../../Providers/Calendar";
 import { useUser } from "../../Providers/User";
 import React, { useState } from "react";
 import { Modal } from "antd";
-
-//OBS.: Faltando receber a informaçao do grupo na linha 46.
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 const CreateActivity = () => {
-	const { userToken } = useUser();
+	const { userToken, userGroup } = useUser();
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
 
 	const { calendar, setCalendar } = useCalendar();
@@ -45,7 +44,7 @@ const CreateActivity = () => {
 
 	const handleForm = async (data) => {
 		data.realization_time = data.realization_time.toISOString();
-		data.group = 2;
+		data.group = userGroup;
 		await habitsAPI.post(`activities/`, data, {
 			headers: AuthConfig,
 		});
@@ -54,8 +53,13 @@ const CreateActivity = () => {
 	};
 	return (
 		<>
-			<Button type="primary" onClick={showModal} variant="outlined">
-				Nova atividade +
+			<Button
+				type="primary"
+				onClick={showModal}
+				variant="outlined"
+				style={{ margin: 0, padding: 0, height: "20px", width: "50px" }}
+			>
+				<PlusCircleOutlined />
 			</Button>
 			<Modal
 				title={`Você está criando uma nova atividade`}

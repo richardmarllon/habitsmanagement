@@ -3,108 +3,72 @@ import {
 	ButtonsContainer,
 	TextContainer,
 	ImageContainer,
+	ButtonMenu,
+	MobileHeaderContainer,
 } from "./style";
 import { Button } from "@material-ui/core";
 import MenuComponent from "../Menu";
 import { useUser } from "../../Providers/User";
+import { useHistory } from "react-router-dom";
 
-const Header = (props) => {
+const Header = ({ pageName, clearToken }) => {
 	const { userToken } = useUser();
+	const history = useHistory();
 	return (
 		<>
-			<HeaderContainer>
-				{window.screen.width > 600 ? (
-					userToken ? (
-						<>
-							<ImageContainer alt="" src="logo.png" />
-							<TextContainer>{props.pageName}</TextContainer>
-							<ButtonsContainer>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									HOME
-								</Button>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									GRUPOS
-								</Button>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									HÁBITOS
-								</Button>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									SAIR
-								</Button>
-							</ButtonsContainer>
-						</>
-					) : (
-						<>
-							<ImageContainer alt="" src="logo.png" />
-							<TextContainer>{props.pageName}</TextContainer>
-							<ButtonsContainer>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									REGISTRAR
-								</Button>
-								<Button
-									variant="contained"
-									style={{
-										backgroundColor: "transparent",
-										color: "white",
-										border: "solid 1px white",
-										margin: "5px",
-									}}
-								>
-									LOGIN
-								</Button>
-							</ButtonsContainer>
-						</>
-					)
-				) : (
-					<>
-						<ImageContainer alt="" src="logo.png" />
-						<TextContainer>{props.pageName}</TextContainer>
-						<ButtonsContainer>
-							<MenuComponent />
-						</ButtonsContainer>
-					</>
-				)}
-			</HeaderContainer>
+			{userToken ? (
+				<HeaderContainer>
+					<ImageContainer alt="" src="logo.png" />
+					<TextContainer>
+						<h1>{pageName}</h1>
+					</TextContainer>
+					<ButtonsContainer>
+						<ButtonMenu
+							onClick={() => {
+								history.push("/home");
+							}}
+							variant="contained"
+						>
+							HOME
+						</ButtonMenu>
+						<ButtonMenu
+							onClick={() => {
+								history.push("/groups");
+							}}
+							variant="contained"
+						>
+							GRUPOS
+						</ButtonMenu>
+						<ButtonMenu
+							onClick={() => {
+								history.push("/users");
+							}}
+							variant="contained"
+						>
+							USUÁRIOS
+						</ButtonMenu>
+						<ButtonMenu variant="contained" onClick={clearToken}>
+							SAIR
+						</ButtonMenu>
+					</ButtonsContainer>
+				</HeaderContainer>
+			) : (
+				<HeaderContainer>
+					<ImageContainer alt="" src="logo.png" />
+					<TextContainer>{pageName}</TextContainer>
+					<ButtonsContainer>
+						<Button variant="contained">REGISTRAR</Button>
+						<Button variant="contained">LOGIN</Button>
+					</ButtonsContainer>
+				</HeaderContainer>
+			)}
+
+			<MobileHeaderContainer>
+				<ImageContainer alt="" src="logo.png" />
+				<ButtonsContainer>
+					<MenuComponent clearToken={clearToken} />
+				</ButtonsContainer>
+			</MobileHeaderContainer>
 		</>
 	);
 };
