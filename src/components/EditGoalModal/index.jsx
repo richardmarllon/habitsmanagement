@@ -43,7 +43,6 @@ const EditGoalModal = ({ goal, setChanger, changer }) => {
 		let response = await habitsAPI.patch(`goals/${goal.id}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA EDIÇÃO DE META DO GRUPO");
 		reset();
 		setIsModalVisible(false);
 		setChanger(!changer);
@@ -53,7 +52,6 @@ const EditGoalModal = ({ goal, setChanger, changer }) => {
 		let response = await habitsAPI.delete(`goals/${goal.id}/`, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA EDIÇÃO DE META DO GRUPO");
 		setIsModalVisible(false);
 		setChanger(!changer);
 	};

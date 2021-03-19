@@ -46,9 +46,7 @@ const FormLogin = () => {
 	});
 
 	const handleForm = (data) => {
-		console.log(data);
 		habitsAPI.post("sessions/", data).then((resp) => {
-			console.log(resp);
 			setUserToken(JSON.stringify(resp.data.access));
 			localStorage.setItem("token", JSON.stringify(resp.data.access));
 		});

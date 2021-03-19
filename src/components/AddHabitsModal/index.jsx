@@ -4,7 +4,6 @@ import {
 	TextField,
 	InputLabel,
 	Select,
-	Button,
 	FormControl,
 	MenuItem,
 	FormHelperText,
@@ -47,7 +46,6 @@ const AddHabitsModal = () => {
 		let response = await habitsAPI.post(`habits/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE HABITO NO USUÁRIO");
 		reset();
 		setUpdate(!update);
 		setIsModalVisible(false);

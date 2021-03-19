@@ -13,7 +13,6 @@ import React, { useState } from "react";
 const EditCardGroup = ({group}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const { userGroup, userToken, setUserGroup } = useUser();
-    console.log(userGroup)
     
     const schema = yup.object().shape({
 		name: yup.string(),
@@ -30,7 +29,6 @@ const EditCardGroup = ({group}) => {
 		let response = await habitsAPI.patch(`groups/${userGroup}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "UPDATE NO GROUPS");
 		reset();
 
 	};

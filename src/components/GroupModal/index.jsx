@@ -32,7 +32,6 @@ const GroupModal = ({ group }) => {
 		let response = await habitsAPI.delete(`goals/${goal.id}/`, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA DELETAR META DO GRUPO");
 		setChanger(!changer);
 	};
 

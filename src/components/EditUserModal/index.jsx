@@ -27,7 +27,6 @@ const EditUserModal = () => {
 		let response = await habitsAPI.patch(`users/${user}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE UPDATE NO USERNAME");
 		reset();
 		setIsModalVisible(false);
 	};
