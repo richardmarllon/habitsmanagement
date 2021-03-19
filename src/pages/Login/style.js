@@ -21,9 +21,6 @@ export const Body = styled.div`
 	background: url(${backgroundLogin}) no-repeat center center fixed;
 
 	@media (min-width: 600px) {
-		background: url(${backgroundLogin}) no-repeat center center fixed;
-
-		background-color: #0a131f;
 	}
 `;
 

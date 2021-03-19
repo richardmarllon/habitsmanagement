@@ -82,7 +82,6 @@ const FormLogin = () => {
 							label="Senha"
 							name="password"
 							size="small"
-							color="primary"
 							inputRef={register}
 							error={!!errors.password || !!errors.email}
 							helperText={errors.password?.message}
