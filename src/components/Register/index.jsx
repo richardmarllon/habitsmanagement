@@ -4,7 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { TextField, Button, createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-import { Container, Content } from "./style";
+import { Container, Content, StyledButton, StyledTextField } from "./style";
+import { useUser } from "../../Providers/User";
+import { message } from "antd";
 
 const theme = createMuiTheme({
 	palette: {
@@ -25,6 +27,15 @@ const theme = createMuiTheme({
 });
 
 const Register = () => {
+	const key = "updatable";
+
+	const openMessage = () => {
+		message.loading({ content: "Cadastrando...", key });
+		setTimeout(() => {
+			message.success({ content: "Conta criada!", key, duration: 2 });
+		}, 1000);
+	};
+	const { showLogin, setShowLogin } = useUser();
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
 		email: yup
@@ -37,7 +48,7 @@ const Register = () => {
 		password: yup
 			.string()
 			.required("Campo Obrigatório")
-			.min(6, "Minimo 6 caracteres"),
+			.min(6, "Mínimo 6 caracteres"),
 		confirmPassword: yup
 			.string()
 			.required("Campo Obrigatório")
@@ -51,6 +62,8 @@ const Register = () => {
 	const handleForm = async (data) => {
 		delete data.confirmPassword;
 		await habitsAPI.post(`/users/`, data);
+		openMessage();
+		setShowLogin(!showLogin);
 	};
 
 	return (
@@ -61,7 +74,7 @@ const Register = () => {
 						<h1>Seja bem vindo</h1>
 						<p>Registre-se : </p>
 
-						<TextField
+						<StyledTextField
 							color="primary"
 							variant="outlined"
 							label="Usuário"
@@ -72,20 +85,17 @@ const Register = () => {
 							helperText={errors.username?.message}
 						/>
 
-						<br />
-						<br />
-						<TextField
+						<StyledTextField
 							variant="outlined"
-							label="Email"
+							label="E-mail"
 							size="small"
 							name="email"
 							inputRef={register}
 							error={!!errors.email}
 							helperText={errors.email?.message}
 						/>
-						<br />
-						<br />
-						<TextField
+
+						<StyledTextField
 							variant="outlined"
 							type="password"
 							label="Senha"
@@ -95,25 +105,32 @@ const Register = () => {
 							error={!!errors.password}
 							helperText={errors.password?.message}
 						/>
-						<br />
-						<br />
-						<TextField
+
+						<StyledTextField
 							variant="outlined"
 							type="password"
-							label="Comfirmar senha"
+							label="Confirmar senha"
 							size="small"
 							name="confirmPassword"
 							inputRef={register}
 							error={!!errors.confirmPassword}
 							helperText={errors.confirmPassword?.message}
 						/>
-						<br />
-						<br />
-						<div style={{ paddingBottom: "15px" }}>
+
+						<div>
 							<ThemeProvider theme={theme}>
-								<Button type="submit" variant="contained" color="primary">
+								<StyledButton
+									type="submit"
+									variant="contained"
+									color="primary"
+									onKeyDown={(e) => {
+										if (e === "Enter") {
+											handleSubmit(handleForm);
+										}
+									}}
+								>
 									Criar
-								</Button>
+								</StyledButton>
 							</ThemeProvider>
 						</div>
 					</form>

@@ -6,6 +6,7 @@ const HabitsContext = createContext();
 
 export const HabitsProvider = ({ children }) => {
 	const [habits, setHabits] = useState([]);
+	const [update, setUpdate] = useState(true);
 	const [personalHabits, setPersonalHabits] = useState([]);
 	const { userToken } = useUser();
 
@@ -20,11 +21,18 @@ export const HabitsProvider = ({ children }) => {
 			}
 			GetPersonalHabits();
 		}
-	}, [userToken, setPersonalHabits]);
+	}, [userToken, setPersonalHabits, update]);
 
 	return (
 		<HabitsContext.Provider
-			value={{ habits, setHabits, personalHabits, setPersonalHabits }}
+			value={{
+				habits,
+				setHabits,
+				personalHabits,
+				setPersonalHabits,
+				setUpdate,
+				update,
+			}}
 		>
 			{children}
 		</HabitsContext.Provider>

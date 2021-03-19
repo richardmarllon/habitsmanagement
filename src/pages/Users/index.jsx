@@ -1,11 +1,15 @@
 import UserList from "../../components/userList";
 import { Fade } from "react-awesome-reveal";
+import Header from "../../components/Header";
 
 const Users = () => {
 	return (
-		<Fade>
-			<UserList />
-		</Fade>
+		<>
+			<Header pageName="Usuários" />
+			<Fade triggerOnce>
+				<UserList />
+			</Fade>
+		</>
 	);
 };
 

@@ -1,41 +1,39 @@
 import styled from "styled-components";
 import backgroundLogin from "../../components/images/backgroundLogin.png";
-import Logo from "../../components/images/logo.png";
 
 export const LoginContainer = styled.div`
-	width: 100%;
 	display: flex;
 	align-items: flex-end;
 	flex-flow: wrap column;
+
 	@media (min-width: 600px) {
+		padding-left: 50px;
+		width: 30vw;
+		img {
+		}
 	}
 `;
 
 export const Body = styled.div`
 	height: 100vh;
+	background-size: cover;
 
 	background: url(${backgroundLogin}) no-repeat center center fixed;
 
 	@media (min-width: 600px) {
 		background: url(${backgroundLogin}) no-repeat center center fixed;
-		background-size: cover;
 
 		background-color: #0a131f;
 	}
 `;
 
 export const Contents = styled.div`
-	@media (min-width: 600px) {
-		background: url(${Logo}) no-repeat center center fixed;
-		background-size: 60%;
-	}
-`;
+	display: flex;
+	align-items: center;
 
-// export const Remendo = styled.div`
-// 	height: 300px;
-// 	border: 1px solid red;
-// 	background-image: linear-gradient(to right, #041b3c, #0d264b, #00163e);
-// `;
+	box-sizing: border-box;
+	justify-content: space-around;
+`;
 
 export const FooterContainer = styled.div`
 	width: 100%;
@@ -46,4 +44,21 @@ export const FooterContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 	color: white;
+`;
+
+export const ImageContainer = styled.div`
+	display: none;
+	@media (min-width: 600px) {
+		display: block;
+		color: white;
+		font-size: 1.8rem;
+
+		height: 350px;
+		width: 400px;
+
+		img {
+			height: 80%;
+			width: 90%;
+		}
+	}
 `;

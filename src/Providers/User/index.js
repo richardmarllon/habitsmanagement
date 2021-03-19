@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
 	const [userToken, setUserToken] = useState(token);
 	const [userGroup, setUserGroup] = useState(null);
 	const [changeGroupSignal, setChangeGroupSignal] = useState(false);
+	const [showLogin, setShowLogin] = useState(true);
 
 	if (token && typeof user !== "number") {
 		setUser(jwt_decode(token).user_id);
@@ -35,6 +36,8 @@ export const UserProvider = ({ children }) => {
 				setUserGroup,
 				changeGroupSignal,
 				setChangeGroupSignal,
+				showLogin,
+				setShowLogin,
 			}}
 		>
 			{children}

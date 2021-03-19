@@ -11,7 +11,7 @@ import MenuComponent from "../Menu";
 import { useUser } from "../../Providers/User";
 import { useHistory } from "react-router-dom";
 
-const Header = ({ pageName }) => {
+const Header = ({ pageName, backgroundColor = false }) => {
 	const { userToken, setUserToken } = useUser();
 	const history = useHistory();
 
@@ -24,7 +24,7 @@ const Header = ({ pageName }) => {
 	return (
 		<>
 			{userToken ? (
-				<HeaderContainer>
+				<HeaderContainer backgroundColor={backgroundColor}>
 					<ImageContainer alt="" src="logo.png" />
 					<TextContainer>
 						<h1>{pageName}</h1>
@@ -60,7 +60,7 @@ const Header = ({ pageName }) => {
 					</ButtonsContainer>
 				</HeaderContainer>
 			) : (
-				<HeaderContainer>
+				<HeaderContainer backgroundColor={backgroundColor}>
 					<ImageContainer alt="" src="logo.png" />
 					<TextContainer>{pageName}</TextContainer>
 					<ButtonsContainer>
@@ -70,7 +70,7 @@ const Header = ({ pageName }) => {
 				</HeaderContainer>
 			)}
 
-			<MobileHeaderContainer>
+			<MobileHeaderContainer backgroundColor={backgroundColor}>
 				<ImageContainer alt="" src="logo.png" />
 				<ButtonsContainer>
 					<MenuComponent logOut={logOut} />

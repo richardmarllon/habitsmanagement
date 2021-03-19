@@ -27,7 +27,7 @@ const GroupForm = ({ modal = false, setIsModalVisible }) => {
 			const resp = await habitsAPI.post(`groups/`, data, {
 				headers: AuthConfig,
 			});
-			let enterGroup = await habitsAPI.post(
+			const enterGroup = await habitsAPI.post(
 				`groups/${resp.data.id}/subscribe/`,
 				null,
 				{
