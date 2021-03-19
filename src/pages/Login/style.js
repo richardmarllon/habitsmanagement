@@ -7,10 +7,6 @@ export const LoginContainer = styled.div`
 	flex-flow: wrap column;
 
 	@media (min-width: 600px) {
-		padding-left: 50px;
-		width: 30vw;
-		img {
-		}
 	}
 `;
 
