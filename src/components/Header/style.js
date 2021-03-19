@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 
@@ -7,13 +6,14 @@ export const HeaderContainer = styled.div`
 	@media only screen and (min-width: 600px) {
 		max-width: 100vw;
 		background-color: ${(props) =>
-		props.backgroundColor ? "transparent" : "#003554"};
+			props.backgroundColor ? "transparent" : "#003554"};
 		height: 10vh;
 		color: white;
 		display: flex;
 		justify-content: space-between;
 		margin: 0;
 		padding: 0;
+		align-items: center;
 		box-sizing: border-box;
 		text-align: center;
 	}
@@ -35,30 +35,21 @@ export const MobileHeaderContainer = styled.div`
 `;
 
 export const ButtonMenu = styled(Button)`
-	background-color: transparent !important;
+	font-weight: 700;
+	background-color: ${(props) =>
+		props.local ? `white !important` : ` transparent !important`};
 	border: solid 1px white !important;
-	color: white !important;
+	color: ${(props) =>
+		props.local ? `#003554 !important` : `white !important`};
 	margin: 3% !important;
-`;
-export const TextContainer = styled.div`
-	width: 30vw;
-	h1 {
-		height: 2rem;
-		color: white;
-	}
-	@media only screen and (min-width: 600px) {
-		margin-top: 0.5rem;
-		margin-left: 28vw;
-		margin-right: auto;
-	}
+	padding: 0.2rem 1.3rem !important;
 `;
 
 export const ButtonsContainer = styled.div`
 	display: flex;
 	z-index: 1;
 	@media only screen and (min-width: 600px) {
-		display: flex;
-		justify-content: space-between;
+		min-width: calc(100vw / 3);
 	}
 `;
 
@@ -67,8 +58,5 @@ export const ImageContainer = styled.img`
 	margin-top: 2%;
 	margin-bottom: 2%;
 	@media only screen and (min-width: 600px) {
-		margin-left: 0.2rem;
-		margin-top: 0.2rem;
-		margin-bottom: 0.2rem;
 	}
 `;
