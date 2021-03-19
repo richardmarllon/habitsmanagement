@@ -31,7 +31,7 @@ export const HabitsProvider = ({ children }) => {
 				personalHabits,
 				setPersonalHabits,
 				setUpdate,
-				update
+				update,
 			}}
 		>
 			{children}

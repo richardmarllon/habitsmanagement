@@ -1,7 +1,6 @@
 import EditHabitsModal from "../../components/EditHabitsModal";
 import { useHabits } from "../../Providers/Habits";
 import { useUser } from "../../Providers/User";
-import { Button } from "@material-ui/core";
 import { DeleteOutlined } from "@ant-design/icons";
 import { habitsAPI } from "../../services/api";
 import {
