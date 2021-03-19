@@ -8,7 +8,7 @@ export const Container = styled.div`
 	margin: 5vh auto 0 auto;
 	min-height: 200px;
 	max-height: 30%;
-	min-width: 300px;
+	min-width: 260px;
 	max-width: 10%;
 	border-radius: 10px;
 	backdrop-filter: blur(10px);

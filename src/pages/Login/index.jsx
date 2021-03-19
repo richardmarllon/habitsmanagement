@@ -22,9 +22,6 @@ const Login = () => {
 					</ImageContainer>
 					<LoginContainer>
 						{showLogin ? <FormLogin /> : <Register />}
-						<button onClick={() => setShowLogin(!showLogin)}>
-							{showLogin ? "Registrar-se" : "Fazer login"}
-						</button>
 					</LoginContainer>
 				</Contents>
 
