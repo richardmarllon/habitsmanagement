@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextField, Button } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { habitsAPI } from "../../services/api";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -10,9 +10,10 @@ import { useUser } from "../../Providers/User";
 import React, { useState } from "react";
 import { Modal } from "antd";
 import { useGroups } from "../../Providers/Groups";
+import { StyledCreateActivityButton } from "./style";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
-const CreateActivity = () => {
+const CreateActivity = ({ modal = false }) => {
 	const { userToken, userGroup } = useUser();
 	const { changer, setChanger } = useGroups();
 	const AuthConfig = { Authorization: `Bearer ${JSON.parse(userToken)}` };
@@ -56,14 +57,15 @@ const CreateActivity = () => {
 	};
 	return (
 		<>
-			<Button
+			<StyledCreateActivityButton
 				type="primary"
 				onClick={showModal}
 				variant="outlined"
-				style={{ margin: 0, padding: 0, height: "20px", width: "50px" }}
+				modal={modal}
 			>
-				<PlusCircleOutlined />
-			</Button>
+				{modal && "Criar atividade "}
+				<PlusCircleOutlined style={{ marginLeft: "1ex" }} />
+			</StyledCreateActivityButton>
 			<Modal
 				title={`Você está criando uma nova atividade`}
 				visible={modalVisible}

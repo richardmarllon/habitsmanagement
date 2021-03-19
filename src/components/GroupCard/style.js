@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 export const GroupContainer = styled.div`
 	margin: 10px auto;
@@ -54,4 +55,8 @@ export const StyledButton = styled(Button)`
 	border-radius: 7px;
 	margin: 0px 5px !important;
 	max-width: 45%;
+`;
+
+export const PlusCircleStyled = styled(PlusCircleOutlined)`
+	width: 50px;
 `;
