@@ -14,8 +14,6 @@ export const Container = styled.div`
 	backdrop-filter: blur(10px);
 
 	@media (min-width: 600px) {
-		min-height: 350px;
-
 		min-width: 300px;
 		max-width: 10%;
 		margin: 15vh auto 0 auto;

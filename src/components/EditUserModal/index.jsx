@@ -11,7 +11,12 @@ import { StyledBtn } from "./style";
 
 const EditUserModal = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const { user, userToken } = useUser();
+	const {
+		user,
+		userToken,
+		setChangeGroupSignal,
+		changeGroupSignal,
+	} = useUser();
 
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
@@ -29,6 +34,7 @@ const EditUserModal = () => {
 		});
 		reset();
 		setIsModalVisible(false);
+		setChangeGroupSignal(!changeGroupSignal);
 	};
 
 	const showModal = () => {

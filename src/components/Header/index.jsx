@@ -14,7 +14,13 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const Header = ({ pageName, backgroundColor = false }) => {
-	const { userToken, setUserToken, showLogin, setShowLogin } = useUser();
+	const {
+		userToken,
+		setUserToken,
+		showLogin,
+		setShowLogin,
+		setUser,
+	} = useUser();
 	const history = useHistory();
 	const [local, setLocal] = useState("");
 
@@ -26,6 +32,7 @@ const Header = ({ pageName, backgroundColor = false }) => {
 		localStorage.clear();
 		setUserToken(null);
 		history.push("/");
+		setUser(null);
 	};
 	return (
 		<>

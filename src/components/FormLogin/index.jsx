@@ -11,6 +11,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
 import { Container, Content, SpaceTop, StyledButton } from "./style";
+import { useGroup } from "../../Providers/Group";
+import jwt_decode from "jwt-decode";
 
 const theme = createMuiTheme({
 	palette: {
@@ -31,7 +33,13 @@ const theme = createMuiTheme({
 });
 
 const FormLogin = () => {
-	const { setUserToken } = useUser();
+	const {
+		setUserToken,
+		changeGroupSignal,
+		setChangeGroupSignal,
+		setUser,
+	} = useUser();
+	const { usernameChanger, setUsernameChanger } = useGroup();
 
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
@@ -49,7 +57,10 @@ const FormLogin = () => {
 		habitsAPI.post("sessions/", data).then((resp) => {
 			setUserToken(JSON.stringify(resp.data.access));
 			localStorage.setItem("token", JSON.stringify(resp.data.access));
+			setUser(jwt_decode(resp.data.access).user_id);
 		});
+		setChangeGroupSignal(changeGroupSignal);
+		setUsernameChanger(usernameChanger);
 	};
 
 	return (
