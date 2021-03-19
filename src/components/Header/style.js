@@ -43,7 +43,7 @@ export const ButtonMenu = styled(Button)`
 export const TextContainer = styled.div`
 	width: 30vw;
 	h1 {
-		height: 5rem;
+		height: 2rem;
 		color: white;
 	}
 	@media only screen and (min-width: 600px) {

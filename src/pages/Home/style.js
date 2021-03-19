@@ -1,11 +1,4 @@
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
-import Header from "../../components/Header";
-
-export const HeaderHome = styled(Header)`
-	@media only screen and (min-width: 600px) {
-	}
-`;
 
 export const HomeContainer = styled.body`
 	display: flex;
@@ -50,7 +43,7 @@ export const HomeContainer = styled.body`
 		justify-content: space-around;
 		align-items: center;
 		padding-bottom: 2rem;
-		font-size: 1.5rem;
+		font-size: 1rem;
 	}
 	.newActivity {
 		height: 20vh;
@@ -60,7 +53,7 @@ export const HomeContainer = styled.body`
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
-		font-size: 1.5rem;
+		font-size: 1rem;
 	}
 	@media only screen and (min-width: 600px) {
 		box-sizing: border-box;
@@ -102,7 +95,7 @@ export const HomeContainer = styled.body`
 			border-radius: 10px;
 			display: flex;
 			flex-direction: column;
-			font-size: 1.5rem;
+			font-size: 1rem;
 		}
 	}
 `;
@@ -118,10 +111,14 @@ export const UsernameContainer = styled.div`
 	}
 	@media only screen and (min-width: 600px) {
 		position: absolute;
+		z-index: 2;
+		margin: 0 auto;
+		left: 50%;
+		transform: translateX(-50%);
 		max-width: 30vw;
 		display: flex;
 		flex-direction: column;
-		top: 1rem;
+		top: 4rem;
 		border: none;
 		height: 30vh;
 		align-items: center;
@@ -215,20 +212,6 @@ export const UserImage = styled.img`
 		transform: translateY(0);
 		width: 70%;
 		max-width: 160px;
-	}
-`;
-
-export const FooterContainer = styled.div`
-	width: 100%;
-	height: 50px;
-	margin-top: 40px;
-	background-color: #003554;
-	display: flex;
-	justify-content: space-between;
-	color: white;
-	@media only screen and (min-width: 600px) {
-		position: absolute;
-		bottom: 0;
 	}
 `;
 
