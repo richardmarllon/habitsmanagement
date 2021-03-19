@@ -18,6 +18,8 @@ export const Body = styled.div`
 	background-size: cover;
 
 	background: url(${backgroundLogin});
+	background-size: cover;
+	background-repeat: no-repeat;
 
 	@media (min-width: 600px) {
 		background-color: black;
