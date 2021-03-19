@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const MenuComponent = ({ logOut }) => {
+	const { showLogin, setShowLogin } = useUser();
 	const history = useHistory();
 	const { userToken } = useUser();
 	const [collapsed, setCollapsed] = useState(false);
@@ -75,13 +76,13 @@ const MenuComponent = ({ logOut }) => {
 								<Menu.Item
 									icon={<LoginOutlined />}
 									onClick={() => {
-										history.push("/");
+										setShowLogin(true);
 									}}
 								></Menu.Item>
 								<Menu.Item
 									icon={<FormOutlined />}
 									onClick={() => {
-										history.push("/");
+										setShowLogin(false);
 									}}
 								></Menu.Item>
 							</>

@@ -12,11 +12,13 @@ export const LoginContainer = styled.div`
 
 export const Body = styled.div`
 	height: 100vh;
+	background-color: black;
 	background-size: cover;
 
 	background: url(${backgroundLogin}) no-repeat center center fixed;
 
 	@media (min-width: 600px) {
+		background-color: black;
 	}
 `;
 

@@ -8,7 +8,7 @@ export const Container = styled.div`
 	box-shadow: 0 0 3px 1px white;
 	min-height: 200px;
 	max-height: 30%;
-	min-width: 300px;
+	min-width: 260px;
 	max-width: 10%;
 	border-radius: 10px;
 	backdrop-filter: blur(10px);
