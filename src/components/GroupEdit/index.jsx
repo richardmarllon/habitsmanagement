@@ -14,7 +14,6 @@ import EditCardGroup from "../EditCardGrup";
 const GroupEdit = () => {
     
     const {groups} = useGroups()  
-    console.log(groups.id)
 
    
 

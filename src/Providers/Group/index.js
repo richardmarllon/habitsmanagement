@@ -1,5 +1,6 @@
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { useGroups } from "../Groups";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -9,6 +10,7 @@ export const GroupProvider = ({ children }) => {
 	const [group, setGroup] = useState(null);
 	const [username, setUsername] = useState(null);
 	const { userGroup, user } = useUser();
+	const { changer } = useGroups();
 
 	useEffect(() => {
 		if (userGroup) {
@@ -21,7 +23,7 @@ export const GroupProvider = ({ children }) => {
 			}
 			getGroupUser();
 		}
-	}, [userGroup]);
+	}, [userGroup, changer]);
 
 	return (
 		<GroupContext.Provider value={{ group, setGroup, username, setUsername }}>

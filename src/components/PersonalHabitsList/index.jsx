@@ -21,7 +21,6 @@ const PersonalHabitsList = () => {
 			headers: AuthConfig,
 		});
 		setUpdate(!update);
-		console.log(response, "RESPOSTA DELETAR HABITO PESSOAL");
 	};
 
 	return (

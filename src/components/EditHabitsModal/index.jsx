@@ -45,7 +45,6 @@ const EditHabitsModal = ({ habit }) => {
 		let response = await habitsAPI.patch(`habits/${habit.id}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
 		reset();
 		setUpdate(!update);
 		setIsModalVisible(false);
@@ -55,7 +54,6 @@ const EditHabitsModal = ({ habit }) => {
 		let response = await habitsAPI.delete(`habits/${habit.id}/`, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA EDIÇÃO DE HABITO PESSOAL");
 		setUpdate(!update);
 		setIsModalVisible(false);
 	};
