@@ -9,18 +9,21 @@ export const UserProvider = ({ children }) => {
 	const [user, setUser] = useState(token);
 	const [userToken, setUserToken] = useState(token);
 	const [userGroup, setUserGroup] = useState(null);
+	const [username, setUsername] = useState(null);
 	const [changeGroupSignal, setChangeGroupSignal] = useState(false);
 	const [showLogin, setShowLogin] = useState(true);
 
 	if (token && typeof user !== "number") {
 		setUser(jwt_decode(token).user_id);
 	}
+
 	useEffect(() => {
 		setUserToken(localStorage.getItem("token") || "");
 		if (typeof user === "number") {
 			async function getUserGroup() {
 				const getGroup = await habitsAPI.get(`users/${user}/`);
 				setUserGroup(getGroup.data.group);
+				setUsername(getGroup.data);
 			}
 			getUserGroup();
 		}
@@ -38,6 +41,8 @@ export const UserProvider = ({ children }) => {
 				setChangeGroupSignal,
 				showLogin,
 				setShowLogin,
+				username,
+				setUsername,
 			}}
 		>
 			{children}

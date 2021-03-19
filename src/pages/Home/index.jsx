@@ -30,16 +30,31 @@ import PersonalHabitsList from "../../components/PersonalHabitsList";
 import AddHabitsModal from "../../components/AddHabitsModal";
 import { useEffect } from "react";
 import { useGroups } from "../../Providers/Groups";
+import { habitsAPI } from "../../services/api";
 
 const Home = () => {
-	const { setUserToken, userGroup } = useUser();
+	const {
+		setUserToken,
+		userGroup,
+		userToken,
+		username,
+		setUsername,
+		user,
+	} = useUser();
 	const { personalHabits } = useHabits();
-	const { group, username } = useGroup();
+	const { group } = useGroup();
 	const { changer, setChanger } = useGroups();
 	const { activities } = useActivities();
 	const history = useHistory();
 
-	useEffect(() => {}, [changer]);
+	useEffect(() => {
+		async function getGroupUser() {
+			const resp = await habitsAPI.get(`users/${user}/`);
+
+			setUsername(resp.data);
+		}
+		getGroupUser();
+	}, [changer, username]);
 
 	const clearToken = () => {
 		setUserToken("");
@@ -60,7 +75,7 @@ const Home = () => {
 						)}
 					</UsernameContainer>
 					<CardContainer>
-						{group !== null ? (
+						{group ? (
 							<>
 								<h1>{group.name}</h1>
 

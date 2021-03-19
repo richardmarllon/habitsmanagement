@@ -34,7 +34,9 @@ const GroupForm = ({ modal = false, setIsModalVisible }) => {
 					headers: AuthConfig,
 				}
 			);
-			setIsModalVisible(false);
+			if (modal) {
+				setIsModalVisible(false);
+			}
 			setChanger(!changer);
 			reset();
 		}

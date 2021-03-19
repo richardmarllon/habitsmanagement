@@ -25,9 +25,9 @@ const PersonalHabitsList = () => {
 
 	return (
 		<div>
-			{personalHabits.map((habit) => {
+			{personalHabits.map((habit, index) => {
 				return (
-					<HabitContainer>
+					<HabitContainer key={index}>
 						<TitleHabit>{habit.title}</TitleHabit>
 						<ContentDiv>realizado {habit.how_much_achieved}x </ContentDiv>
 						<ContentDiv>Dificuldade: {habit.difficulty}</ContentDiv>
