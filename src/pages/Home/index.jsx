@@ -20,13 +20,11 @@ import {
 	UserImage,
 	TitleContainer,
 	CardContainer,
-	FooterContainer,
 	DivContainer,
 	EasyContainer,
 	MediumContainer,
 	HardContainer,
 	ButtonsCard,
-	HeaderHome,
 } from "./style";
 
 const Home = () => {
@@ -45,9 +43,9 @@ const Home = () => {
 
 	return (
 		<>
-			<Fade>
-				<HeaderHome pageName="Home" clearToken={clearToken} />
-				<HomeContainer>
+			<Header pageName="Home" clearToken={clearToken} />
+			<HomeContainer>
+				<Fade>
 					<UsernameContainer>
 						<UserImage alt="" src={Avatar} />
 						{username && (
@@ -213,25 +211,25 @@ const Home = () => {
 					</CardContainer>
 					<CardContainer className="activitiesContainer">
 						<h1>Atividades</h1>
-						{activities && userGroup > 0 ? (
-							<Carousel autoplay>
-								<div className="newActivity">
-									<h3>Adicionar Atividade: </h3>
-									<CreateActivity />
-								</div>
-								{activities.map((item) => {
-									return (
-										<div>
-											<div className="activities" key={item.id}>
-												<div>Atividade: {item.title}</div>
-												<div>Grupo: {item.group}</div>
-												<UpdateActivity activity={item} />
+						<Carousel autoplay>
+							<div className="newActivity">
+								<h3>Adicionar Atividade: </h3>
+								<CreateActivity />
+							</div>
+							{activities && userGroup > 0
+								? activities.map((item) => {
+										return (
+											<div>
+												<div className="activities" key={item.id}>
+													<div>Atividade: {item.title}</div>
+													<div>Grupo: {item.group}</div>
+													<UpdateActivity activity={item} />
+												</div>
 											</div>
-										</div>
-									);
-								})}
-							</Carousel>
-						) : null}
+										);
+								  })
+								: null}
+						</Carousel>
 					</CardContainer>
 					<CardContainer>
 						<h1>Hábitos</h1>
@@ -258,12 +256,9 @@ const Home = () => {
 							</Button>
 						</ButtonsCard>
 					</CardContainer>
-
-					<FooterContainer>
-						<Footer />
-					</FooterContainer>
-				</HomeContainer>
-			</Fade>
+				</Fade>
+				<Footer />
+			</HomeContainer>
 		</>
 	);
 };

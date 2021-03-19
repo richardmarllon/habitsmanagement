@@ -12,6 +12,20 @@ export const ContactsContainer = styled.div`
 	}
 `;
 
+export const FooterContainer = styled.div`
+	width: 100%;
+	height: 50px;
+	margin-top: 40px;
+	background-color: #003554;
+	display: flex;
+	justify-content: space-between;
+	color: white;
+	@media only screen and (min-width: 600px) {
+		position: absolute;
+		bottom: 0;
+	}
+`;
+
 export const LinkedinLogo = styled.img`
 	width: 10px;
 	height: auto;

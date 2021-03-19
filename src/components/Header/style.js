@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
 	@media only screen and (min-width: 600px) {
 		max-width: 100vw;
 		background-color: #003554;
-		height: 10vh;
+		height: 7vh;
 		color: white;
 		display: flex;
 		justify-content: space-between;
@@ -20,7 +20,7 @@ export const HeaderContainer = styled.div`
 export const MobileHeaderContainer = styled.div`
 	max-width: 100vw;
 	background-color: #003554;
-	height: 10vh;
+	height: 7vh;
 	color: white;
 	display: flex;
 	justify-content: space-between;
@@ -40,7 +40,7 @@ export const ButtonMenu = styled(Button)`
 export const TextContainer = styled.div`
 	width: 30vw;
 	h1 {
-		height: 5rem;
+		height: 2rem;
 		color: white;
 	}
 	@media only screen and (min-width: 600px) {

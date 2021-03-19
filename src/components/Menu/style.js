@@ -21,5 +21,5 @@ export const ButtonMenuOpen = styled.button`
 `;
 
 export const IconMenuContainer = styled(UnorderedListOutlined)`
-	font-size: 3rem;
+	font-size: 2rem;
 `;
