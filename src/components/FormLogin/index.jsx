@@ -31,7 +31,7 @@ const theme = createMuiTheme({
 });
 
 const FormLogin = () => {
-	const { setUserToken, showLogin, setShowLogin } = useUser();
+	const { setUserToken } = useUser();
 
 	const schema = yup.object().shape({
 		username: yup.string().required("Campo Obrigatório"),
