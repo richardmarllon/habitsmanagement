@@ -13,7 +13,6 @@ export const Container = styled.div`
 	border-radius: 10px;
 	backdrop-filter: blur(10px);
 	@media (min-width: 600px) {
-		width: 300px;
 		margin: 20vh auto 0 auto;
 	}
 `;

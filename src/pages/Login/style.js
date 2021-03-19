@@ -7,6 +7,8 @@ export const LoginContainer = styled.div`
 	flex-flow: wrap column;
 
 	@media (min-width: 600px) {
+		max-width: 30vw;
+		max-height: 60vh;
 	}
 `;
 
@@ -15,7 +17,7 @@ export const Body = styled.div`
 	background-color: black;
 	background-size: cover;
 
-	background: url(${backgroundLogin}) no-repeat center center fixed;
+	background: url(${backgroundLogin});
 
 	@media (min-width: 600px) {
 		background-color: black;
