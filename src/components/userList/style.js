@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Pagination } from "antd";
+import { Spin } from "antd";
 
 export const UsersContainer = styled.div`
 	display: flex;
@@ -14,8 +15,23 @@ export const UsersContainer = styled.div`
 `;
 
 export const StyledPagination = styled(Pagination)`
-	margin: 3rem auto;
+	margin: 1rem auto;
 	font-size: 1rem;
 	text-align: center;
-	padding: 0 0 3rem 0;
+	padding: 0 0 15vh 0;
+`;
+
+export const LoadingDiv = styled.div`
+	z-index: 1;
+	height: 150%;
+	min-width: 100vw;
+	backdrop-filter: blur(35px);
+	position: absolute;
+
+	background-color: rgba(255, 255, 255, 0.5);
+`;
+
+export const SpinStyled = styled(Spin)`
+	width: 100%;
+	margin-top: 20%;
 `;

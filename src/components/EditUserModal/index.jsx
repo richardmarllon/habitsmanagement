@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { EditOutlined } from "@ant-design/icons";
+import { StyledBtn } from "./style";
 
 const EditUserModal = () => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,7 +27,6 @@ const EditUserModal = () => {
 		let response = await habitsAPI.patch(`users/${user}/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE UPDATE NO USERNAME");
 		reset();
 		setIsModalVisible(false);
 	};
@@ -40,9 +41,9 @@ const EditUserModal = () => {
 
 	return (
 		<>
-			<Button type="primary" onClick={showModal} variant="outlined">
-				Alterar nome de usuário
-			</Button>
+			<StyledBtn type="primary" onClick={showModal} variant="outlined">
+				<EditOutlined />
+			</StyledBtn>
 			<Modal
 				title="Alterar nome de usuário"
 				visible={isModalVisible}

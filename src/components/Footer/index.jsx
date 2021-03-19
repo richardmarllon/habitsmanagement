@@ -1,9 +1,14 @@
-import { ContactsContainer, LinkedinLogo } from "./style";
+import {
+	ContactsContainer,
+	LinkedinLogo,
+	ImageContainer,
+	FooterContainer,
+} from "./style";
 
 const Footer = () => {
 	return (
-		<>
-			<img alt="" src="logo.png" />
+		<FooterContainer>
+			<ImageContainer alt="" src="logo.png" />
 			<ContactsContainer>
 				<a href="https://www.linkedin.com/in/danilo-kvet">
 					<LinkedinLogo
@@ -34,7 +39,7 @@ const Footer = () => {
 					Richard Silva
 				</a>
 			</ContactsContainer>
-		</>
+		</FooterContainer>
 	);
 };
 

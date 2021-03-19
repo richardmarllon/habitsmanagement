@@ -9,13 +9,14 @@ export const GroupsProvider = ({ children }) => {
 	const [userGroupData, setUserGroupData] = useState([]);
 	const [groups, setGroups] = useState([]);
 	const [changer, setChanger] = useState(true);
-	const { userGroup } = useUser();
+	const { userGroup, changeGroupSignal, setChangeGroupSignal } = useUser();
 
 	useEffect(() => {
 		async function getUserGroup() {
 			if (userGroup) {
 				const group = await habitsAPI.get(`groups/${userGroup}/`);
 				setUserGroupData(group.data);
+				setChangeGroupSignal(!changeGroupSignal);
 			}
 		}
 		getUserGroup();

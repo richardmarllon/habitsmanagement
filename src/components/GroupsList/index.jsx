@@ -1,44 +1,64 @@
 import { useGroups } from "../../Providers/Groups";
 import { habitsAPI } from "../../services/api";
-import { StyledPagination, GroupsListContainer } from "./style";
-import { useHistory } from "react-router";
+import {
+	StyledPagination,
+	GroupsListContainer,
+	LoadingDiv,
+	SpinStyled,
+} from "./style";
 import GroupCard from "../GroupCard";
 import { useEffect, useState } from "react";
+import GroupForm from "../GroupForm ";
+import GroupFormModal from "../GroupFormModal";
+import { Fade } from "react-awesome-reveal";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const GroupsList = () => {
-	const { groups, setGroups } = useGroups();
-	const [page, setPage] = useState(1);
 	const [totalGroup, setTotalGroup] = useState(0);
-	const history = useHistory();
+	const { groups, setGroups, changer, setChanger } = useGroups();
+	const [page, setPage] = useState(1);
+	const [loading, setLoading] = useState(true);
+	const antIcon = <LoadingOutlined style={{ fontSize: 55 }} spin />;
 
 	useEffect(() => {
 		async function getGroupsList() {
 			const response = await habitsAPI.get(`groups/?page=${page}`);
+
 			setTotalGroup(response.data.count);
 			setGroups(response.data.results);
+			setLoading(false);
 		}
 		getGroupsList();
-	}, [page]);
+	}, [page, changer]);
 
 	const handlePages = (value) => {
+		setLoading(true);
+		window.scrollTo({ top: 0, behavior: "smooth" });
 		setPage(value);
 	};
 
 	return (
 		<div>
-			<h2>GroupList</h2>
-			<button
-				onClick={() => {
-					history.push("/home");
-				}}
-			>
-				voltar para home
-			</button>
-
+			{loading && (
+				<LoadingDiv>
+					<SpinStyled indicator={antIcon} />
+				</LoadingDiv>
+			)}
 			<GroupsListContainer>
-				{groups.map((group) => (
-					<GroupCard group={group} key={group.id} />
-				))}
+				<GroupFormModal />
+				<GroupForm />
+				{groups.map((group) => {
+					return (
+						<Fade triggerOnce>
+							<GroupCard
+								group={group}
+								key={group.id}
+								setChanger={setChanger}
+								changer={changer}
+							/>
+						</Fade>
+					);
+				})}
 			</GroupsListContainer>
 			<StyledPagination
 				hideOnSinglePage={true}

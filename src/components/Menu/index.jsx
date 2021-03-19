@@ -1,94 +1,96 @@
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import { useUser } from "../../Providers/User";
-
 import {
-	UnorderedListOutlined,
+	MenuContainer,
+	ButtonMenuContainer,
+	ButtonMenuOpen,
+	IconMenuContainer,
+} from "./style";
+import {
 	WechatFilled,
-	ScheduleFilled,
 	HomeFilled,
 	LogoutOutlined,
 	LoginOutlined,
 	FormOutlined,
+	TeamOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-const MenuComponent = () => {
+const MenuComponent = ({ logOut }) => {
+	const { showLogin, setShowLogin } = useUser();
+	const history = useHistory();
 	const { userToken } = useUser();
-	const { SubMenu } = Menu;
 	const [collapsed, setCollapsed] = useState(false);
-	const [subMenu, setSubMenu] = useState(false);
 
 	const toggleCollapsed = () => {
 		setCollapsed(!collapsed);
-		setSubMenu(false);
-	};
-
-	const toggleSubMenu = () => {
-		setSubMenu(true);
 	};
 
 	return (
-		<div style={{ width: "80px" }}>
-			<Button
+		<ButtonMenuContainer>
+			<ButtonMenuOpen
 				type="primary"
-				onClick={toggleCollapsed}
-				style={{
-					height: "100%",
-					backgroundColor: "transparent",
-					border: "none",
-					margin: 0,
-					paddingLeft: "7px",
-					paddingTop: "12px",
+				onClick={() => {
+					toggleCollapsed();
 				}}
 			>
-				<UnorderedListOutlined style={{ fontSize: "40px" }} />
-			</Button>
+				<IconMenuContainer />
+			</ButtonMenuOpen>
 			{collapsed && (
-				<Menu
-					defaultSelectedKeys={["1"]}
-					defaultOpenKeys={["sub1"]}
-					mode="inline"
-					theme="dark"
-					inlineCollapsed={collapsed}
-				>
-					{userToken ? (
-						<>
-							<Menu.Item key="1" icon={<HomeFilled />}>
-								HOME
-							</Menu.Item>
-							<SubMenu
-								key="sub1"
-								icon={<WechatFilled />}
-								title="GRUPOS"
-								onTitleClick={toggleSubMenu}
-							>
-								{subMenu && (
-									<>
-										<Menu.Item key="2">SEU GRUPO</Menu.Item>
-										<Menu.Item key="3">PESQUISAR GRUPOS</Menu.Item>
-									</>
-								)}
-							</SubMenu>
-							<Menu.Item key="4" icon={<ScheduleFilled />}>
-								HÁBITOS
-							</Menu.Item>
-							<Menu.Item key="5" icon={<LogoutOutlined />}>
-								SAIR
-							</Menu.Item>
-						</>
-					) : (
-						<>
-							<Menu.Item key="6" icon={<LoginOutlined />}>
-								LOGIN
-							</Menu.Item>
-							<Menu.Item key="7" icon={<FormOutlined />}>
-								REGISTRAR
-							</Menu.Item>
-						</>
-					)}
-				</Menu>
+				<MenuContainer>
+					<Menu defaultSelectedKeys={["1"]} mode="inline" theme="dark">
+						{userToken ? (
+							<>
+								<Menu.Item
+									key="1"
+									icon={<HomeFilled />}
+									onClick={() => {
+										history.push("/home");
+									}}
+								></Menu.Item>
+
+								<Menu.Item
+									key="2"
+									icon={<WechatFilled />}
+									title="GRUPOS"
+									onClick={() => {
+										history.push("/groups");
+									}}
+								></Menu.Item>
+								<Menu.Item
+									key="3"
+									icon={<TeamOutlined />}
+									onClick={() => {
+										history.push("/users");
+									}}
+								></Menu.Item>
+								<Menu.Item
+									key="4"
+									icon={<LogoutOutlined />}
+									onClick={logOut}
+								></Menu.Item>
+							</>
+						) : (
+							<>
+								<Menu.Item
+									icon={<LoginOutlined />}
+									onClick={() => {
+										setShowLogin(true);
+									}}
+								></Menu.Item>
+								<Menu.Item
+									icon={<FormOutlined />}
+									onClick={() => {
+										setShowLogin(false);
+									}}
+								></Menu.Item>
+							</>
+						)}
+					</Menu>
+				</MenuContainer>
 			)}
-		</div>
+		</ButtonMenuContainer>
 	);
 };
 

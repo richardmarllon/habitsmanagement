@@ -4,7 +4,6 @@ import {
 	TextField,
 	InputLabel,
 	Select,
-	Button,
 	FormControl,
 	MenuItem,
 	FormHelperText,
@@ -14,8 +13,11 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { habitsAPI } from "../../services/api";
 import { useUser } from "../../Providers/User";
+import { StyledButton } from "./styles";
+import { useHabits } from "../../Providers/Habits";
 
 const AddHabitsModal = () => {
+	const { update, setUpdate } = useHabits();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [difficulty, setDifficulty] = useState("");
 	const { user, userToken } = useUser();
@@ -44,8 +46,8 @@ const AddHabitsModal = () => {
 		let response = await habitsAPI.post(`habits/`, data, {
 			headers: AuthConfig,
 		});
-		console.log(response, "RESPOSTA CRIAÇÃO DE HABITO NO USUÁRIO");
 		reset();
+		setUpdate(!update);
 		setIsModalVisible(false);
 	};
 
@@ -59,9 +61,9 @@ const AddHabitsModal = () => {
 
 	return (
 		<>
-			<Button type="primary" onClick={showModal} variant="outlined">
-				Adicionar hábito.
-			</Button>
+			<StyledButton type="primary" onClick={showModal} variant="outlined">
+				Adicionar hábito
+			</StyledButton>
 			<Modal
 				title="Criar um novo hábito:"
 				visible={isModalVisible}
