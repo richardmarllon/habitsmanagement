@@ -10,31 +10,36 @@ import { Button } from "@material-ui/core";
 import MenuComponent from "../Menu";
 import { useUser } from "../../Providers/User";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Header = ({ pageName, backgroundColor = false }) => {
 	const { userToken, setUserToken } = useUser();
 	const history = useHistory();
+	const [local, setLocal] = useState("");
+
+	useEffect(() => {
+		setLocal(history.location.pathname);
+	}, [history.location.pathname]);
 
 	const logOut = () => {
 		localStorage.clear();
 		setUserToken(null);
 		history.push("/");
 	};
-
+	console.log(local === "/users");
 	return (
 		<>
 			{userToken ? (
 				<HeaderContainer backgroundColor={backgroundColor}>
 					<ImageContainer alt="" src="logo.png" />
-					<TextContainer>
-						<h1>{pageName}</h1>
-					</TextContainer>
 					<ButtonsContainer>
 						<ButtonMenu
 							onClick={() => {
 								history.push("/home");
 							}}
 							variant="contained"
+							local={local === "/home"}
 						>
 							HOME
 						</ButtonMenu>
@@ -43,6 +48,7 @@ const Header = ({ pageName, backgroundColor = false }) => {
 								history.push("/groups");
 							}}
 							variant="contained"
+							local={local === "/groups"}
 						>
 							GRUPOS
 						</ButtonMenu>
@@ -51,6 +57,7 @@ const Header = ({ pageName, backgroundColor = false }) => {
 								history.push("/users");
 							}}
 							variant="contained"
+							local={local === "/users"}
 						>
 							USUÁRIOS
 						</ButtonMenu>
@@ -62,7 +69,6 @@ const Header = ({ pageName, backgroundColor = false }) => {
 			) : (
 				<HeaderContainer backgroundColor={backgroundColor}>
 					<ImageContainer alt="" src="logo.png" />
-					<TextContainer>{pageName}</TextContainer>
 					<ButtonsContainer>
 						<Button variant="contained">REGISTRAR</Button>
 						<Button variant="contained">LOGIN</Button>
