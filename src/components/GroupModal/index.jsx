@@ -112,7 +112,7 @@ const GroupModal = ({ group }) => {
 								</ActivitiesContainer>
 							);
 						})}
-						<CreateActivity />
+						<CreateActivity modal />
 					</ActivityListContainer>
 				)}
 			</Modal>
