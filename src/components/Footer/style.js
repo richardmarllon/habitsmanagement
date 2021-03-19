@@ -7,7 +7,7 @@ export const ContactsContainer = styled.div`
 	align-self: center;
 	font-size: 10px;
 	@media only screen and (min-width: 600px) {
-		width: 50%;
+		min-width: 50%;
 		font-size: 16px;
 	}
 `;
@@ -43,5 +43,6 @@ export const ImageContainer = styled.img`
 		margin-top: 0.2rem;
 		margin-bottom: 0.2rem;
 		width: 5vw;
+		min-width: 60px;
 	}
 `;

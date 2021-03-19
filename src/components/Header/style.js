@@ -60,3 +60,5 @@ export const ImageContainer = styled.img`
 	@media only screen and (min-width: 600px) {
 	}
 `;
+
+

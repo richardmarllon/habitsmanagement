@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const Header = ({ pageName, backgroundColor = false }) => {
-	const { userToken, setUserToken } = useUser();
+	const { userToken, setUserToken, showLogin, setShowLogin } = useUser();
 	const history = useHistory();
 	const [local, setLocal] = useState("");
 
@@ -27,7 +27,6 @@ const Header = ({ pageName, backgroundColor = false }) => {
 		setUserToken(null);
 		history.push("/");
 	};
-	console.log(local === "/users");
 	return (
 		<>
 			{userToken ? (
@@ -70,8 +69,24 @@ const Header = ({ pageName, backgroundColor = false }) => {
 				<HeaderContainer backgroundColor={backgroundColor}>
 					<ImageContainer alt="" src="logo.png" />
 					<ButtonsContainer>
-						<Button variant="contained">REGISTRAR</Button>
-						<Button variant="contained">LOGIN</Button>
+						<ButtonMenu
+							variant="contained"
+							local={!showLogin}
+							onClick={() => {
+								setShowLogin(false);
+							}}
+						>
+							REGISTRAR
+						</ButtonMenu>
+						<ButtonMenu
+							variant="contained"
+							local={showLogin}
+							onClick={() => {
+								setShowLogin(true);
+							}}
+						>
+							LOGIN
+						</ButtonMenu>
 					</ButtonsContainer>
 				</HeaderContainer>
 			)}
