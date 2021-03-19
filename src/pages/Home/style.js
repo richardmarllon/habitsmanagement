@@ -7,7 +7,6 @@ export const HomeContainer = styled.body`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #e5e7e6;
 	h1 {
 		text-align: center;
 	}
