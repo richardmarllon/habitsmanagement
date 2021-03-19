@@ -59,11 +59,9 @@ export const HomeContainer = styled.body`
 		flex-direction: row;
 		justify-content: space-around;
 		.activitiesContainer {
+			max-height: 40vh;
+			margin-bottom: -50%;
 			border: none;
-			justify-content: flex-end;
-			h1 {
-				margin-bottom: 0.3rem;
-			}
 		}
 		.slick-list {
 			width: 25vw;
@@ -110,14 +108,14 @@ export const UsernameContainer = styled.div`
 	}
 	@media only screen and (min-width: 600px) {
 		position: absolute;
-		z-index: 2;
+		z-index: 654165 !important;
 		margin: 0 auto;
 		left: 50%;
 		transform: translateX(-50%);
 		max-width: 30vw;
 		display: flex;
 		flex-direction: column;
-		top: 4rem;
+		top: 7rem;
 		border: none;
 		height: 30vh;
 		align-items: center;
@@ -156,6 +154,10 @@ export const CardContainer = styled.div`
 		max-width: 30vw;
 		height: 70vh;
 		overflow: auto;
+
+		:nth-child(2) {
+			max-height: 30vh;
+		}
 	}
 `;
 
@@ -196,6 +198,7 @@ export const TitleContainer = styled.h2`
 	font-size: 25px;
 	padding-top: 0.1rem;
 	align-self: center;
+	z-index: 1;
 	@media only screen and (min-width: 600px) {
 	}
 `;

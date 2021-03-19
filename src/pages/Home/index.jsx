@@ -28,15 +28,18 @@ import {
 } from "./style";
 import PersonalHabitsList from "../../components/PersonalHabitsList";
 import AddHabitsModal from "../../components/AddHabitsModal";
+import { useEffect } from "react";
+import { useGroups } from "../../Providers/Groups";
 
 const Home = () => {
 	const { setUserToken, userGroup } = useUser();
 	const { personalHabits } = useHabits();
 	const { group, username } = useGroup();
+	const { changer, setChanger } = useGroups();
 	const { activities } = useActivities();
 	const history = useHistory();
 
-	console.log(group);
+	useEffect(() => {}, [changer]);
 
 	const clearToken = () => {
 		setUserToken("");
@@ -52,8 +55,7 @@ const Home = () => {
 						<UserImage alt="" src={Avatar} />
 						{username && (
 							<TitleContainer>
-								{username.username}
-								<EditUserModal />
+								{username.username} <EditUserModal />
 							</TitleContainer>
 						)}
 					</UsernameContainer>
@@ -69,7 +71,6 @@ const Home = () => {
 										.split("")[0] === "d" && (
 										<>
 											<h3>
-												{" "}
 												Título: {group.goals[group.goals.length - 1].title}
 											</h3>
 											<h3>Dificuldade: </h3>
